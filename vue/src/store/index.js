@@ -19,7 +19,8 @@ if(currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+    beerType: ['Pilsner', 'Stout', 'Ale', 'IPA', 'Porter', 'Stout', 'Wheat', 'Special']
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
