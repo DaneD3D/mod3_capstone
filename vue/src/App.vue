@@ -63,8 +63,8 @@ header {
   grid-area: userProfile;
   justify-self: end;
   align-self: center;
-  width: 4vw;
   height: auto;
+  width: 55px;
 }
 
 body {
