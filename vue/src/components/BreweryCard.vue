@@ -5,8 +5,18 @@
 </template>
 
 <script>
+
+
 export default {
-    name: 'brewery-card'
+    name: 'brewery-card',
+    data() {
+      
+    },
+    methods: {
+      getBreweries() {
+
+      }
+    }
 
 }
 </script>

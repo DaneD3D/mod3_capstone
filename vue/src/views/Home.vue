@@ -15,6 +15,8 @@ import NoiseFlag from '@/components/NoiseFlag.vue'
 import MoneyFlag from '@/components/MoneyFlag.vue'
 import BreweryCard from '@/components/BreweryCard.vue'
 
+import BreweryService from "@/services/BreweryService.js"
+
 export default {
   name: "home",
   components:{
@@ -22,6 +24,16 @@ export default {
     NoiseFlag,
     MoneyFlag,
     BreweryCard
+  },
+  methods: {
+    getBreweries() {
+      BreweryService.list().then(response => {
+        this.$store.commit('SET_BREWERIES', response.data);
+      });
+    }
+  },
+  created() {
+    this.getBreweries();
   }
 };
 </script>
