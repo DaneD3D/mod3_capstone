@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="beerFlags">
-      <beer-type-flag v-for="beerType in this.$store.state.beerType" v-bind:key="beerType" v-bind="beerType"></beer-type-flag>
+      <beer-type-flag v-for="beerType in this.$store.state.beerType" v-bind:key="beerType"></beer-type-flag>
       <noise-flag></noise-flag>
       <money-flag></money-flag>
       <brewery-card v-for="brewery in this.$store.state.breweryList" v-bind:key="brewery"></brewery-card>
@@ -28,12 +28,13 @@ export default {
   methods: {
     getBreweries() {
       BreweryService.list().then(response => {
-        this.$store.commit('SET_BREWERIES', response.data);
+        this.$store.commit("SET_BREWERIES", response.data);
       });
     }
   },
   created() {
     this.getBreweries();
+    console.log('ONE');
   }
 };
 </script>

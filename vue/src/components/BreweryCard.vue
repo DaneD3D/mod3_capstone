@@ -1,6 +1,6 @@
 <template>
   <div class="breweryCard">
-
+    <h1>{{brewery.name}}</h1>
   </div>
 </template>
 
@@ -8,19 +8,13 @@
 
 
 export default {
-    name: 'brewery-card',
-    data() {
-      
-    },
-    methods: {
-      getBreweries() {
-
-      }
-    }
-
+    name: 'brewery-card'
 }
 </script>
 
 <style>
+.breweryCard{
+  background-color: aqua;
+}
 
 </style>

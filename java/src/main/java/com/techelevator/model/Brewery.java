@@ -1,7 +1,7 @@
 package com.techelevator.model;
 
 public class Brewery {
-      private Long id;
+      private String id;
       private String name;
       private String brewery_type;
       private String street;
@@ -10,22 +10,22 @@ public class Brewery {
       private String city;
       private String state;
       private String county_province;
-      private int postal_code;
+      private String postal_code;
       private String country;
-      private double longitude;
-      private double latitude;
-      private int phone;
+      private String longitude;
+      private String latitude;
+      private String phone;
       private String website_url;
 
       public Brewery() {
             //no-arg constructor
       }
 
-      public Long getId() {
+      public String getId() {
             return id;
       }
 
-      public void setId(Long id) {
+      public void setId(String id) {
             this.id = id;
       }
 
@@ -93,11 +93,11 @@ public class Brewery {
             this.county_province = county_province;
       }
 
-      public int getPostal_code() {
+      public String getPostal_code() {
             return postal_code;
       }
 
-      public void setPostal_code(int postal_code) {
+      public void setPostal_code(String postal_code) {
             this.postal_code = postal_code;
       }
 
@@ -109,27 +109,27 @@ public class Brewery {
             this.country = country;
       }
 
-      public double getLongitude() {
+      public String getLongitude() {
             return longitude;
       }
 
-      public void setLongitude(double longitude) {
+      public void setLongitude(String longitude) {
             this.longitude = longitude;
       }
 
-      public double getLatitude() {
+      public String getLatitude() {
             return latitude;
       }
 
-      public void setLatitude(double latitude) {
+      public void setLatitude(String latitude) {
             this.latitude = latitude;
       }
 
-      public int getPhone() {
+      public String getPhone() {
             return phone;
       }
 
-      public void setPhone(int phone) {
+      public void setPhone(String phone) {
             this.phone = phone;
       }
 
