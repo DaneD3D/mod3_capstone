@@ -1,30 +1,29 @@
 package com.techelevator.controller;
 
-
 import com.techelevator.model.Brewery;
-import com.techelevator.services.BreweryService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.List;
+
 @RestController
 public class BreweryController {
-    private BreweryService breweryService;
-    private RestTemplate restTemplate = new RestTemplate();
 
-    public BreweryController(BreweryService breweryService) {
-        this.breweryService = breweryService;
-    }
 
-public BreweryController() {
-    //no arg
-}
-
-    @RequestMapping(path = "/api/breweries", method = RequestMethod.GET)
-    public Brewery getBreweryList() {
-        Brewery brewery = breweryService.getList();
-        System.out.println(brewery);
-        return brewery;
+    // Testing Open Brewery DB API
+    @RequestMapping(path = "/breweries", method = RequestMethod.GET)
+    public List<Object> getBreweries() {
+        String url = "https://api.openbrewerydb.org/breweries";
+        RestTemplate restTemplate = new RestTemplate();
+        Brewery[] testBrew = restTemplate.getForObject(url, Brewery[].class);
+        Object[] breweries = restTemplate.getForObject(url, Object[].class);
+        for (Brewery item: testBrew) {
+            System.out.println(item.toString());
+        }
+        System.out.println(testBrew.length);
+        return Arrays.asList(testBrew);
     }
 }
