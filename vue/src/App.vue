@@ -1,14 +1,16 @@
 <template>
   <div id="app">
+    
     <header>
       <!-- Header is in App because it will always display even if router view changes -->
-      <h1 id="siteName">Brews N' Buds</h1>
-      <user-button id="userButton"></user-button>
+      <router-link class="brew-font-lg"  id="siteName" :to="{ name: 'home' }">Brews N' Buds</router-link>
+      <user-button @click.native="toLogin" class="userLogo" id="userButton"></user-button>
     </header>
 
     <body>
       <router-view />
     </body>
+
   </div>
   <!--  Commenting out so we can build the site more to our needs
     <div id="nav">
@@ -25,6 +27,12 @@ export default {
   components: {
     UserButton,
   },
+
+  methods: {
+    toLogin(){
+      this.$router.push({name: 'login'});
+    }
+  }
 };
 </script>
 
@@ -39,7 +47,7 @@ export default {
 #app {
   height: 100%;
   display: grid;
-  grid-template-rows: 8vh 92vh;
+  grid-template-rows: 80px 91vh;
 }
 
 header {
@@ -51,12 +59,9 @@ header {
 
 #siteName {
   grid-area: siteName;
-  font-family: "Fredoka One", sans-serif;
   color: #fffefc;
-  font-size: 4.7vh;
   justify-self: start;
   align-self: center;
-  font-weight: normal;
 }
 
 #userButton {
@@ -69,5 +74,38 @@ header {
 
 body {
   background-color: #fcf7e1;
+}
+
+.brew-font-lg{
+  font-family: "Fredoka One", sans-serif;
+  font-weight: normal;
+  font-size: 32px;
+  text-decoration: none;
+}
+
+.brew-font-sm{
+  font-family: "Fredoka One", sans-serif;
+  font-weight: 100;
+  font-size: 18px;
+}
+
+.form-user {
+  display: flex;
+  gap: 10px;
+  margin-top: 15vh;
+  margin-left: 35vw;
+  margin-right: 35vw;
+  padding: 40px;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: #F9A333;
+  border-style: solid;
+  border-color: #2f3353;
+  border-width: .5em;
+}
+
+.form-title{
+  color: #fffefc;
 }
 </style>

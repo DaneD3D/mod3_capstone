@@ -20,7 +20,8 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    beerType: ['Pilsner', 'Stout', 'Ale', 'IPA', 'Porter', 'Stout', 'Wheat', 'Special']
+    beerType: ['Pilsner', 'Stout', 'Ale', 'IPA', 'Porter', 'Stout', 'Wheat', 'Special'],
+    breweryList: ['Pearl Street', 'Georges', 'Ales', 'Hopp House', 'Stout and Rounds', 'ObeseWheel']
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {

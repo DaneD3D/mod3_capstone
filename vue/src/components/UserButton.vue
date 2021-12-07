@@ -1,27 +1,21 @@
 <template>
-    <div>
-        <!--
-        <img src="@/assets/1x/UserLogo.png" alt="user-icon">
-        -->
-        <UserLogo class="userLogo"/>
-    </div>
+    <UserLogo/>
 </template>
 
 <script>
-import UserLogo from '@/assets/SVG/UserLogo.vue'
+import UserLogo from "@/assets/SVG/UserLogo.vue";
 
 export default {
-    name: 'user-button',
-    components: {
-        UserLogo
-    }
-
-}
+  name: "user-button",
+  components: {
+    UserLogo,
+  }
+};
 </script>
 
-<style>
-.userLogo{
-    size: 500%
+<style scoped>
+div {
+  margin: 0;
+  padding: 0;
 }
-
 </style>
