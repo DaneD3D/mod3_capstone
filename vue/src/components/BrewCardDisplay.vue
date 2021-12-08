@@ -1,7 +1,7 @@
 <template>
   <div id="brewCardTable">
     <brewery-card
-      v-for="brewery in this.$store.state.breweryList"
+      v-for="brewery in breweryShortList"
       v-bind:key="brewery.name"
       v-bind="brewery"
     />
@@ -26,7 +26,12 @@ export default {
       });
     },
   },
+  computed: {
+    breweryShortList() {
+      return this.$store.state.breweryList.slice(0,6);
+    }
 
+  },
   created() {
     this.getBreweries();
   },

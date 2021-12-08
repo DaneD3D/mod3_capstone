@@ -38,14 +38,8 @@ export default {
 <style>
 .home {
   display: grid;
-  grid-template-rows: 1fr 1fr 6fr;
-  padding: 0.5em;
-}
-
-#toggleFlags{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  grid-template-rows: 65px 55px 6fr;
+  margin: 0.5em;
 }
 
 #beerFlags {
@@ -54,5 +48,12 @@ export default {
   align-content: center;
   justify-content: space-around;
   grid-area: "beers";
+}
+
+#toggleFlags{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 </style>

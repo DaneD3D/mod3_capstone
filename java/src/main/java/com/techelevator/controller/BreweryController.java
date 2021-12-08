@@ -18,7 +18,7 @@ public class BreweryController {
     // Testing Open Brewery DB API
     @RequestMapping(path = "/breweries", method = RequestMethod.GET)
     public List<Object> getBreweries() {
-        String url = "https://api.openbrewerydb.org/breweries";
+        String url = "https://api.openbrewerydb.org/breweries?by_city=chicago";
         RestTemplate restTemplate = new RestTemplate();
         Brewery[] testBrew = restTemplate.getForObject(url, Brewery[].class);
         Object[] breweries = restTemplate.getForObject(url, Object[].class);
