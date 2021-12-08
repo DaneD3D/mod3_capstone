@@ -1,6 +1,6 @@
 <template>
   <div class="moneyFlag">
-
+    <h2>Money</h2>
   </div>
 </template>
 
@@ -13,7 +13,8 @@ export default {
 
 <style>
 .moneyFlag{
-    background-color: blueviolet;
+    background-color: rgb(43, 226, 67);
+    width: 90px;
 }
 
 </style>

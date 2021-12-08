@@ -1,6 +1,6 @@
 <template>
   <div class="noiseFlag">
-
+    <h2>Noise</h2>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
 <style>
 .noiseFlag{
     background-color: aqua;
+    width: 90px;
 }
 
 </style>

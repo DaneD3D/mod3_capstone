@@ -1,6 +1,6 @@
 <template>
   <div class="breweryCard">
-    <h1>{{brewery.name}}</h1>
+    <h1>{{this.$attrs.name}}</h1>
   </div>
 </template>
 
@@ -8,13 +8,14 @@
 
 
 export default {
-    name: 'brewery-card'
+    name: 'brewery-card',
+    props: ['brewery']
 }
 </script>
 
 <style>
 .breweryCard{
-  background-color: aqua;
+  background-color: rgb(169, 131, 201);
 }
 
 </style>

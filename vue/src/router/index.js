@@ -27,7 +27,7 @@ const router = new Router({
       component: Home,
       meta: {
         // Setting to false so we can build the homepage w/o logging in
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {

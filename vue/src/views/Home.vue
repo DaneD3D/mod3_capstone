@@ -1,59 +1,58 @@
 <template>
   <div class="home">
-    <div class="beerFlags">
-      <beer-type-flag v-for="beerType in this.$store.state.beerType" v-bind:key="beerType"></beer-type-flag>
+    <div id="beerFlags">
+      <beer-type-flag
+        v-for="beerType in this.$store.state.beerType"
+        v-bind:key="beerType"
+      ></beer-type-flag>
+    </div>
+    <div id="toggleFlags">
       <noise-flag></noise-flag>
       <money-flag></money-flag>
-      <brewery-card v-for="brewery in this.$store.state.breweryList" v-bind:key="brewery"></brewery-card>
+      <input type="text" name="" id="">
     </div>
+    <brew-card-display></brew-card-display>
   </div>
 </template>
 
 <script>
-import BeerTypeFlag from '@/components/BeerTypeFlag.vue'
-import NoiseFlag from '@/components/NoiseFlag.vue'
-import MoneyFlag from '@/components/MoneyFlag.vue'
-import BreweryCard from '@/components/BreweryCard.vue'
+import BeerTypeFlag from "@/components/BeerTypeFlag.vue";
+import NoiseFlag from "@/components/NoiseFlag.vue";
+import MoneyFlag from "@/components/MoneyFlag.vue";
+import BrewCardDisplay from "@/components/BrewCardDisplay.vue";
 
-import BreweryService from "@/services/BreweryService.js"
+
 
 export default {
   name: "home",
-  components:{
+  components: {
     BeerTypeFlag,
     NoiseFlag,
     MoneyFlag,
-    BreweryCard
+    BrewCardDisplay,
   },
-  methods: {
-    getBreweries() {
-      BreweryService.list().then(response => {
-        this.$store.commit("SET_BREWERIES", response.data);
-      });
-    }
-  },
-  created() {
-    this.getBreweries();
-    console.log('ONE');
-  }
+
 };
 </script>
 
 <style>
-
-.home{
+.home {
   display: grid;
   grid-template-rows: 1fr 1fr 6fr;
-  grid-template-areas: "beers searches breweries";
-  padding: .5em;
+  padding: 0.5em;
 }
 
-.beerFlags{
+#toggleFlags{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#beerFlags {
   display: flex;
   flex-direction: row;
   align-content: center;
   justify-content: space-around;
   grid-area: "beers";
 }
-
 </style>

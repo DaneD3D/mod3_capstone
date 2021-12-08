@@ -4,7 +4,10 @@
     <header>
       <!-- Header is in App because it will always display even if router view changes -->
       <router-link class="brew-font-lg"  id="siteName" :to="{ name: 'home' }">Brews N' Buds</router-link>
-      <user-button @click.native="toLogin" class="userLogo" id="userButton"></user-button>
+      <div class="userButton">
+        <logout-logo v-if="isLoggedIn" @click.native="toLogout"/>
+        <user-button v-else @click.native="toLogin"/>
+      </div>
     </header>
 
     <body>
@@ -22,15 +25,26 @@
 
 <script>
 import UserButton from "@/components/UserButton.vue";
+import LogoutLogo from "@/assets/SVG/LogoutLogo.vue"
 
 export default {
   components: {
     UserButton,
+    LogoutLogo
+  },
+  computed: {
+    isLoggedIn: function() {
+      return !(this.$store.state.token == '');
+    }
+
   },
 
   methods: {
     toLogin(){
       this.$router.push({name: 'login'});
+    },
+    toLogout(){
+      this.$router.push({name: 'logout'});
     }
   }
 };
@@ -64,7 +78,7 @@ header {
   align-self: center;
 }
 
-#userButton {
+.userButton {
   grid-area: userProfile;
   justify-self: end;
   align-self: center;
