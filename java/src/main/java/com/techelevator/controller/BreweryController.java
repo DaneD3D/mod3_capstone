@@ -18,22 +18,14 @@ public class BreweryController {
         this.breweryDao = breweryDao;
     }
 
-    // Testing Open Brewery DB API
-    @RequestMapping(path = "/breweries", method = RequestMethod.GET)
-    public List<Object> getBreweries() {
-        String url = "https://api.openbrewerydb.org/breweries?by_city=chicago";
-        RestTemplate restTemplate = new RestTemplate();
-        Brewery[] testBrew = restTemplate.getForObject(url, Brewery[].class);
-        Object[] breweries = restTemplate.getForObject(url, Object[].class);
-        for (Brewery item: testBrew) {
-            System.out.println(item.toString());
-        }
-        System.out.println(testBrew.length);
-        return Arrays.asList(testBrew);
+
+    @RequestMapping(path = "/breweries/name", method = RequestMethod.GET)
+    public Brewery getBreweryWithName(@RequestParam String breweryName) {
+        return breweryDao.findBreweryByName(breweryName);
     }
 
-    @RequestMapping(path= "/breweries/{name}", method = RequestMethod.GET)
-    public Brewery getBreweryWithName(@PathVariable("name") String name) {
-        return breweryDao.findBreweryByName(name);
+    @RequestMapping(path = "/homepage", method = RequestMethod.GET)
+    public List<Brewery> homepageBreweries(String city) {
+        return breweryDao.displayHomePage();
     }
 }
