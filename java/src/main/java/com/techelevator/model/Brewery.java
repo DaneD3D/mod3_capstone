@@ -1,8 +1,9 @@
 package com.techelevator.model;
 
 public class Brewery {
-      private String id;
-      private String name;
+      private long bb_brewery_id;
+      private String brewery_id;
+      private String brewery_name;
       private String brewery_type;
       private String street;
       private String address_2;
@@ -11,31 +12,42 @@ public class Brewery {
       private String state;
       private String county_province;
       private String postal_code;
+      private String website_url;
+      private String phone;
       private String country;
       private String longitude;
       private String latitude;
-      private String phone;
-      private String website_url;
       private String image_url;
+      private String tags;
 
       public Brewery() {
             //no-arg constructor
       }
 
-      public String getId() {
-            return id;
+      // 10-56-brewing-company-knox	10-56 Brewing Company	micro	400 Brown Cir	(null)	(null)	Knox	Indiana	(null)	46534	(null)	6308165790	United States	-86.627954	41.289715	(null)
+
+      public long getBb_brewery_id() {
+            return bb_brewery_id;
       }
 
-      public void setId(String id) {
-            this.id = id;
+      public void setBb_brewery_id(long bb_brewery_id) {
+            this.bb_brewery_id = bb_brewery_id;
       }
 
-      public String getName() {
-            return name;
+      public String getBrewery_id() {
+            return brewery_id;
       }
 
-      public void setName(String name) {
-            this.name = name;
+      public void setBrewery_id(String brewery_id) {
+            this.brewery_id = brewery_id;
+      }
+
+      public String getBrewery_name() {
+            return brewery_name;
+      }
+
+      public void setBrewery_name(String brewery_name) {
+            this.brewery_name = brewery_name;
       }
 
       public String getBrewery_type() {
@@ -150,6 +162,37 @@ public class Brewery {
             return image_url;
       }
 
+      public String getTags() {
+            return tags;
+      }
+
+      public void setTags(String tags) {
+            this.tags = tags;
+      }
+
+      @Override
+      public String toString() {
+            return "Brewery{" +
+                    "bb_brewery_id=" + bb_brewery_id +
+                    ", brewery_id='" + brewery_id + '\'' +
+                    ", brewery_name='" + brewery_name + '\'' +
+                    ", brewery_type='" + brewery_type + '\'' +
+                    ", street='" + street + '\'' +
+                    ", address_2='" + address_2 + '\'' +
+                    ", address_3='" + address_3 + '\'' +
+                    ", city='" + city + '\'' +
+                    ", state='" + state + '\'' +
+                    ", county_province='" + county_province + '\'' +
+                    ", postal_code='" + postal_code + '\'' +
+                    ", country='" + country + '\'' +
+                    ", longitude='" + longitude + '\'' +
+                    ", latitude='" + latitude + '\'' +
+                    ", phone='" + phone + '\'' +
+                    ", website_url='" + website_url + '\'' +
+                    ", image_url='" + image_url + '\'' +
+                    ", tag='" + tags + '\'' +
+                    '}';
+      }
 
 }
 

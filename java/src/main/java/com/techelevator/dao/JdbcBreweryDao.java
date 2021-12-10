@@ -18,6 +18,7 @@ public class JdbcBreweryDao implements BreweryDao{
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    // Query the DB for what we want. Put it into a Java Object (by calling mapRowToBrewery)
     public Brewery findBreweryByName(String breweryName) {
         String sql = "SELECT * " +
                      "FROM brewery " +
@@ -46,21 +47,28 @@ public class JdbcBreweryDao implements BreweryDao{
         return breweries;
     }
 
+    // Takes the database stuff and puts it into a Java Object ("Brewery")
     private Brewery mapRowToBrewery(SqlRowSet rs) {
         Brewery brewery = new Brewery();
-        brewery.setId(rs.getString("id"));
-        brewery.setName(rs.getString("name"));
+        brewery.setBb_brewery_id(rs.getLong("bb_brewery_id"));
+        brewery.setBrewery_id(rs.getString("brewery_id"));
+        brewery.setBrewery_name(rs.getString("brewery_name"));
         brewery.setBrewery_type(rs.getString("brewery_type"));
         brewery.setStreet(rs.getString("street"));
+        brewery.setAddress_2(rs.getString("address_2"));
+        brewery.setAddress_3(rs.getString("address_3"));
         brewery.setCity(rs.getString("city"));
         brewery.setState(rs.getString("state"));
+        brewery.setCounty_province(rs.getString("county_province"));
         brewery.setPostal_code(rs.getString("postal_code"));
+        brewery.setCountry(rs.getString("country"));
+        brewery.setLongitude(rs.getString("longitude"));
+        brewery.setLatitude(rs.getString("latitude"));
         brewery.setPhone(rs.getString("phone"));
         brewery.setWebsite_url(rs.getString("website_url"));
         brewery.setImage_url(rs.getString("image_url"));
+        brewery.setTags(rs.getString("tags"));
         return brewery;
     }
-
-
 
 }
