@@ -23,10 +23,12 @@ export default new Vuex.Store({
     beerType: ['Pilsner', 'Stout', 'Ale', 'IPA', 'Porter', 'Wheat', 'Special'],
     breweryList: [],
     tempPhotoList: [
-      '@/assets/barPhotos/76e5a972057f2e7075aeb2272bab4898.jpg',
-      '@/assets/barPhotos/36254911514_62b4959f4a_h.png',
-      '@/assets/barPhotos/DESTIHL-Brewery-Interior_1200x800-1024x683.png',
-      '@/assets/barPhotos/eris_nicholasjamesphoto_09_39808629561_o_c168c150-45e3-49d3-a370-abac9254b31b.png'
+      '../assets/barPhotos/1.jpg',
+      '../assets/barPhotos/2.png',
+      '../assets/barPhotos/3.png',
+      '../assets/barPhotos/4.png',
+      '../assets/barPhotos/5.jpg',
+      '../assets/barPhotos/6.png'
     ],
   },
   mutations: {
