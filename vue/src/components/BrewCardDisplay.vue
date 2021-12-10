@@ -17,8 +17,11 @@ export default {
   name: "brew-card-display",
   data() {
     return {
-      goof: 5
-    }
+      window: {
+        width: 0,
+        height: 0,
+      },
+    };
   },
   components: {
     BreweryCard,
@@ -29,15 +32,23 @@ export default {
         this.$store.commit("SET_BREWERIES", response.data);
       });
     },
+    handleResize() {
+      this.window.width = window.innerWidth;
+      this.window.height = window.innerHeight;
+    },
   },
   computed: {
     breweryShortList() {
-      return this.$store.state.breweryList.slice(0,6);
-    }
-
+      return this.$store.state.breweryList.slice(0, 6);
+    },
   },
   created() {
     this.getBreweries();
+    window.addEventListener("resize", this.handleResize);
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>

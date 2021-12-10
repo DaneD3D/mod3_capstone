@@ -19,7 +19,7 @@ export default {
 <style>
 .breweryCard {
   background-color: #f9a333;
-  width: 31vw;
+  width: 400px;
   height: 350px;
   border-radius: 10px;
   background-size: cover;

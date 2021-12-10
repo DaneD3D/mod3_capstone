@@ -1,10 +1,12 @@
 <template>
   <div class="home">
-    <div id="beerFlags">
+    <div id="beerFlagContainer">
       <beer-type-flag
         v-for="beerType in this.$store.state.beerType"
         v-bind:key="beerType"
-      ></beer-type-flag>
+        :beerType="beerType"
+      >
+      </beer-type-flag>
     </div>
     <div id="toggleFlags">
       <noise-flag></noise-flag>
@@ -16,12 +18,11 @@
 </template>
 
 <script>
+
 import BeerTypeFlag from "@/components/BeerTypeFlag.vue";
 import NoiseFlag from "@/components/NoiseFlag.vue";
 import MoneyFlag from "@/components/MoneyFlag.vue";
 import BrewCardDisplay from "@/components/BrewCardDisplay.vue";
-
-
 
 export default {
   name: "home",
@@ -42,10 +43,10 @@ export default {
   margin: 0.5em;
 }
 
-#beerFlags {
+#beerFlagContainer {
   display: flex;
   flex-direction: row;
-  align-content: center;
+  align-items: center;
   justify-content: space-around;
   grid-area: "beers";
 }
