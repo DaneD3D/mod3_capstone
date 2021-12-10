@@ -22,6 +22,7 @@ public class JdbcBreweryDao implements BreweryDao{
         String sql = "SELECT * " +
                      "FROM brewery " +
                      "WHERE brewery_name = ?;";
+
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, breweryName);
         if(result.next()) {
             return mapRowToBrewery(result);

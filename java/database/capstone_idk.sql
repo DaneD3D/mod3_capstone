@@ -31,8 +31,18 @@ CREATE TABLE brewery (
         tags varchar(10)
         ); 
 
---You need to change what's in "FROM" to the absolute path where you stored the CSV file
-COPY brewery(brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, state, county_province, postal_code, website_url, phone, country, longitude, latitude, tags) 
-FROM 'C:\Users\ngond\Desktop\breweries.csv' 
-DELIMITER ',' 
+       
+COPY brewery(brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, state, county_province, postal_code, website_url, phone, country, longitude, latitude, tags)
+FROM 'C:\Users\ngond\workspace\capstone-nlr4-blue-brewery\java\database\breweries.csv'
+DELIMITER ','
 CSV HEADER;
+
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON ALL TABLES IN SCHEMA public
+TO final_capstone_appuser;
+
+SELECT *
+FROM brewery
+WHERE brewery_name = ?;
+
+1188 Brewing Co
