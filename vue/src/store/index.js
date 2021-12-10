@@ -22,14 +22,6 @@ export default new Vuex.Store({
     user: currentUser || {},
     beerType: ['Pilsner', 'Stout', 'Ale', 'IPA', 'Porter', 'Wheat', 'Special'],
     breweryList: [],
-    tempPhotoList: [
-      '../assets/barPhotos/1.jpg',
-      '../assets/barPhotos/2.png',
-      '../assets/barPhotos/3.png',
-      '../assets/barPhotos/4.png',
-      '../assets/barPhotos/5.jpg',
-      '../assets/barPhotos/6.png'
-    ],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
