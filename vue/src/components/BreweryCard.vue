@@ -1,21 +1,21 @@
 <template>
   <div class="breweryCard">
-    <img src="@/assets/barPhotos/3.png" alt="bar-photo"/>
-    <h1>{{ this.$attrs.name }}</h1>
+    <h1>{{ brewery.name }}</h1>
   </div>
 </template>
 
 <script>
 export default {
   name: "brewery-card",
+  props: ["brewery", "index"],
   data() {
     return {
-      barPhoto: ''
-    }
+      barPhoto: "https://tinyurl.com/yw39c6rn",
+    };
   },
-  methods:{
-    getImage() {
-      this.barPhoto = '@/assets/barPhotos/3.png'
+  computed: {
+    randomImage: () =>{
+      return 'background-image' + ':' + 'url("' + this.$store.state.tempPhotoList[this.index] + '")'
     }
   }
 };
@@ -26,5 +26,15 @@ export default {
   background-color: #f9a333;
   width: 31vw;
   height: 350px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+}
+
+.barPhoto {
+  object-fit: cover;
+  width: 31vw;
+  height: 350px;
+  border-radius: 10px;
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div id="brewCardTable">
     <brewery-card
-      v-for="brewery in breweryShortList"
+      v-for="brewery, index in breweryShortList"
       v-bind:key="brewery.name"
-      v-bind="brewery"
+      :brewery="brewery"
+      :index="index"
     />
-    
   </div>
 </template>
 
@@ -16,6 +16,11 @@ import BreweryService from "@/services/BreweryService.js";
 
 export default {
   name: "brew-card-display",
+  data() {
+    return {
+      goof: 5
+    }
+  },
   components: {
     BreweryCard,
   },
@@ -43,6 +48,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: stretch;
   gap: 10px;
 }
