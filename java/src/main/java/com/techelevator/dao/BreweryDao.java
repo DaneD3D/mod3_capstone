@@ -11,4 +11,6 @@ public interface BreweryDao {
    Brewery findBreweryByName(String breweryName);
 
    List<Brewery> findBreweryByZipCode(String zipCode);
+
+   List<Brewery> displayHomePage();
 }

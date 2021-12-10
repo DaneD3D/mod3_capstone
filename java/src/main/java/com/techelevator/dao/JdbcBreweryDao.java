@@ -32,6 +32,22 @@ public class JdbcBreweryDao implements BreweryDao{
         }
     }
 
+    public List<Brewery> displayHomePage() {
+        //loop through bb_brewery_id, increment by one
+        //filter by ones in chicago
+        List<Brewery> breweries = new ArrayList<>();
+        String city = "Chicago";
+        String sql = "SELECT * " +
+                     "FROM brewery " +
+                     "WHERE city = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, city);
+        while(results.next()) {
+            Brewery brewery = mapRowToBrewery(results);
+            breweries.add(brewery);
+        }
+        return breweries;
+    }
+
     public List<Brewery> findBreweryByZipCode(String zipCode) {
         List<Brewery> breweries = new ArrayList<>();
         String strZip = zipCode.substring(0, 3);
@@ -46,6 +62,7 @@ public class JdbcBreweryDao implements BreweryDao{
         }
         return breweries;
     }
+
 
     // Takes the database stuff and puts it into a Java Object ("Brewery")
     private Brewery mapRowToBrewery(SqlRowSet rs) {
