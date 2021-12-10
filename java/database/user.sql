@@ -24,3 +24,7 @@ CREATE TABLE brewery (
         image_url varchar(100)
         );
         
+
+        
+INSERT INTO beer  (beer_id, brewery_id, beer_name, abv, ibu, beer_type)
+VALUES (?, ?, ?, ?, ?, ?);
