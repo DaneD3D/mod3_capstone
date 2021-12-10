@@ -1,5 +1,5 @@
 <template>
-  <div class="breweryCard">
+  <div class="breweryCard" :style="{backgroundImage:`url(${brewery.image_url})`}">
     <h1>{{ brewery.name }}</h1>
   </div>
 </template>
@@ -7,16 +7,11 @@
 <script>
 export default {
   name: "brewery-card",
-  props: ["brewery", "index"],
+  props: ["brewery"],
   data() {
     return {
-      barPhoto: "https://tinyurl.com/yw39c6rn",
+      
     };
-  },
-  computed: {
-    randomImage: () =>{
-      return 'background-image' + ':' + 'url("' + this.$store.state.tempPhotoList[this.index] + '")'
-    }
   }
 };
 </script>

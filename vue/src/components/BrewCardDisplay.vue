@@ -1,10 +1,9 @@
 <template>
   <div id="brewCardTable">
     <brewery-card
-      v-for="brewery, index in breweryShortList"
+      v-for="brewery in breweryShortList"
       v-bind:key="brewery.name"
       :brewery="brewery"
-      :index="index"
     />
   </div>
 </template>
