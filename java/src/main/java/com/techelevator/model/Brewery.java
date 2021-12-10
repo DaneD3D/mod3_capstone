@@ -16,6 +16,7 @@ public class Brewery {
       private String latitude;
       private String phone;
       private String website_url;
+      private String image_url;
 
       public Brewery() {
             //no-arg constructor
@@ -140,5 +141,15 @@ public class Brewery {
       public void setWebsite_url(String website_url) {
             this.website_url = website_url;
       }
+
+      public void setImage_url(String image_url) {
+            this.image_url = image_url;
+      }
+
+      public String getImage_url() {
+            return image_url;
+      }
+
+
 }
 

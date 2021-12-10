@@ -57,7 +57,10 @@ public class JdbcBreweryDao implements BreweryDao{
         brewery.setPostal_code(rs.getString("postal_code"));
         brewery.setPhone(rs.getString("phone"));
         brewery.setWebsite_url(rs.getString("website_url"));
+        brewery.setImage_url(rs.getString("image_url"));
         return brewery;
     }
+
+
 
 }
