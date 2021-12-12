@@ -3,15 +3,12 @@
     class="breweryCard"
     :style="{ backgroundImage: `url(${brewery.image_url})` }"
   >
+  <h1>{{brewery.noise_rating}}</h1>
+  <h1>{{brewery.cost_rating}}</h1>
     <div id="cardOverlay"></div>
     <div id="cardContent">
       <h2 id="barName" class="brew-font-sm-wht">{{ brewery.brewery_name }}</h2>
-      <p id="barDescription" class="brew-font-sm-wht">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis
-        unde totam nesciunt magni molestiae numquam provident quia explicabo,
-        iusto omnis laudantium temporibus? Perferendis exercitationem sapiente
-        cupiditate, eum in ut reiciendis!
-      </p>
+      <p id="barDescription" class="brew-font-sm-wht">{{brewery.brewery_desc}}</p>
     </div>
   </div>
 </template>
@@ -57,7 +54,7 @@ export default {
   position: relative;
   top: 14px;
   font-size: 16px;
-  padding: 3px;
+  padding: 2px;
 
 }
 

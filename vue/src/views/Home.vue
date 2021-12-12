@@ -57,6 +57,8 @@ export default {
 
 #beerFlagContainer {
   display: flex;
+  margin-left: 6.5vw;
+  margin-right: 6.5vw;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -66,6 +68,8 @@ export default {
 
 #toggleFlags {
   display: flex;
+  margin-left: 6.5vw;
+  margin-right: 6.5vw;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;

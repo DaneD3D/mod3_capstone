@@ -1,16 +1,22 @@
 <template>
-  <div id="brewCardTable">
-    <brewery-card
-      v-for="(brewery, index) in breweryShortList"
-      :key="brewery.name"
-      :brewery="brewery"
-      :id="`brewCard${index}`"
-    />
+  <div id="brewCardPage">
+    <arrow-symbol :click="pageRight" class="navArrow" id="leftArrow"></arrow-symbol>
+    <arrow-symbol :click="pageLeft" class="navArrow" id="rightArrow"></arrow-symbol>
+    <div id="brewCardTable">
+      <brewery-card
+        v-for="(brewery, index) in breweryShortList"
+        :key="brewery.name"
+        :brewery="brewery"
+        :id="`brewCard${index}`"
+      />
+      
+    </div>
   </div>
 </template>
 
 <script>
 import BreweryCard from "@/components/BreweryCard.vue";
+import ArrowSymbol from "@/assets/SVG/ArrowSymbol.vue";
 
 import BreweryService from "@/services/BreweryService.js";
 
@@ -22,10 +28,12 @@ export default {
         width: 0,
         height: 0,
       },
+      pageNumber: 1
     };
   },
   components: {
     BreweryCard,
+    ArrowSymbol,
   },
   methods: {
     getBreweries() {
@@ -37,10 +45,13 @@ export default {
       this.window.width = window.innerWidth;
       this.window.height = window.innerHeight;
     },
+    pageRight() {
+
+    }
   },
   computed: {
     breweryShortList() {
-      return this.$store.state.breweryList.slice(0, this.numOfCards);
+      return this.$store.getters.filteredList.slice(0, this.numOfCards);
     },
     numOfCards() {
       let vW = this.window.width - 50;
@@ -66,16 +77,38 @@ export default {
 </script>
 
 <style>
+#brewCardPage {
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 50px 90vw 50px;
+  grid-template-areas: "arrowLeft brewCardDisplay arrowRight";
+  
+}
+
+#leftArrow {
+  grid-area: arrowLeft;
+  align-self: center;
+}
+
+#rightArrow {
+  grid-area: arrowRight;
+  align-self: center;
+}
+
+.navArrow {
+  height: 100px;
+}
+
 #brewCardTable {
+  grid-area: brewCardDisplay;
   margin-top: 5px;
   margin-bottom: 5px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: stretch;
-  gap: 20px;
-  grid-area: beerCards;
+  align-items: center;
+  gap: 15px;
 }
 
 @media only screen and (max-width: 768px) {
