@@ -43,7 +43,13 @@ CREATE TABLE brewery (
         country varchar(30),
         longitude varchar(30),
         latitude varchar(30),
-        image_url varchar(50),
+        image_url varchar(120),
+        brewery_desc varchar(250),
+        opening_time time(0),
+        closing_time time(0),
+        cost_rating integer,
+        noise_rating integer,
+        three_word_desc varchar(20),
         tags varchar(10),
 	CONSTRAINT PK_brewery PRIMARY KEY(bb_brewery_id)	
         ); 
@@ -66,9 +72,9 @@ COMMIT TRANSACTION;
 
 -- Import breweries. Uncomment and add the ABSOLUTE PATH of the CSV file in FROM
 
-/*    
+/*
 COPY brewery(brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, state, county_province, postal_code, website_url, phone, country, longitude, latitude, tags)
-FROM 'C:\Users\ngond\workspace\capstone-nlr4-blue-brewery\java\database\breweries.csv'
+FROM 'D:\TechElevator\workspace\capstone-nlr4-blue-brewery\java\database\breweries.csv'
 DELIMITER ','
 CSV HEADER;
 */
@@ -78,5 +84,20 @@ CSV HEADER;
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON ALL TABLES IN SCHEMA public
 TO final_capstone_appuser;
+*/
+
+--Update all image_urls to placeholder
+/*
+UPDATE brewery
+SET image_url = 'https://picsum.photos/800/600',
+brewery_desc = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis
+        unde totam nesciunt magni molestiae numquam provident quia explicabo,
+        iusto omnis laudantium temporibus? Perferendis exercitationem sapiente
+        cupiditate',
+opening_time = '09:10:00',
+closing_time = '16:30:00',
+cost_rating = random() * 2 + 1,
+noise_rating = random() * 2 + 1,
+three_word_desc = 'Lorem ipsum dolor';
 */
 

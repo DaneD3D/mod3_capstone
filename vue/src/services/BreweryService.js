@@ -7,6 +7,6 @@ const http = axios.create({
 export default {
 
     list() {
-        return http.get('/breweries');
+        return http.get('/homepage');
     }
 }

@@ -1,0 +1,1 @@
+UPDATE brewery SET image_url = 'https://www.pennmedicine.org/-/media/images/miscellaneous/food%20and%20drink/dark_beer_glass.ashx?mw=620&mh=408' WHERE bb_brewery_id = 126;

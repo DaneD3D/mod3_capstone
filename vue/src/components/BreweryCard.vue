@@ -1,6 +1,18 @@
 <template>
-  <div class="breweryCard" :style="{backgroundImage:`url(${brewery.image_url})`}">
-    <h1>{{ brewery.name }}</h1>
+  <div
+    class="breweryCard"
+    :style="{ backgroundImage: `url(${brewery.image_url})` }"
+  >
+    <div id="cardOverlay"></div>
+    <div id="cardContent">
+      <h2 id="barName" class="brew-font-sm-wht">{{ brewery.brewery_name }}</h2>
+      <p id="barDescription" class="brew-font-sm-wht">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis
+        unde totam nesciunt magni molestiae numquam provident quia explicabo,
+        iusto omnis laudantium temporibus? Perferendis exercitationem sapiente
+        cupiditate, eum in ut reiciendis!
+      </p>
+    </div>
   </div>
 </template>
 
@@ -9,10 +21,8 @@ export default {
   name: "brewery-card",
   props: ["brewery"],
   data() {
-    return {
-      
-    };
-  }
+    return {};
+  },
 };
 </script>
 
@@ -20,10 +30,20 @@ export default {
 .breweryCard {
   background-color: #f9a333;
   width: 400px;
-  height: 350px;
+  height: 300px;
   border-radius: 10px;
   background-size: cover;
   background-position: center;
+  border: solid;
+  border-color: #2f3353;
+  border-width: 5px;
+}
+
+.card-font-lg {
+  font-family: "Fredoka One", sans-serif;
+  font-weight: lighter;
+  font-size: 12px;
+  text-decoration: none;
 }
 
 .barPhoto {
@@ -31,5 +51,43 @@ export default {
   width: 31vw;
   height: 350px;
   border-radius: 10px;
+}
+
+#barDescription {
+  position: relative;
+  top: 14px;
+  font-size: 16px;
+  padding: 3px;
+
+}
+
+#cardOverlay {
+  position: relative;
+  top: 100%;
+  transform: translateY(-98%);
+  width: 100%;
+  height: 125px;
+  border-radius: 0px 0px 10px 10px;
+  background: #2f3353;
+  backdrop-filter: blur(10px);
+  opacity: 0.8;
+}
+
+#cardContent {
+  position: relative;
+  top: 51px;
+  left: 4px;
+}
+
+#barName {
+  position: relative;
+  transform: translate(2px, 10px);
+}
+
+@media only screen and (max-width: 1319px) {
+  .breweryCard {
+    width: 350px;
+    height: 280px;
+  }
 }
 </style>

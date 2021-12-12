@@ -44,4 +44,18 @@ export default {
   width: auto;
   margin-right: 5px;
 }
+
+@media only screen and (max-width: 768px) {
+  #beerTypeFlag {
+    width: 125px;
+    height: 45px;
+  }
+  #innerBox {
+    height: 35px;
+    width: 78px;
+  }
+  #beerMug {
+    height: 55%;
+  }
+}
 </style>

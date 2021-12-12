@@ -1,9 +1,10 @@
 <template>
   <div id="brewCardTable">
     <brewery-card
-      v-for="brewery in breweryShortList"
-      v-bind:key="brewery.name"
+      v-for="(brewery, index) in breweryShortList"
+      :key="brewery.name"
       :brewery="brewery"
+      :id="`brewCard${index}`"
     />
   </div>
 </template>
@@ -39,7 +40,18 @@ export default {
   },
   computed: {
     breweryShortList() {
-      return this.$store.state.breweryList.slice(0, 6);
+      return this.$store.state.breweryList.slice(0, this.numOfCards);
+    },
+    numOfCards() {
+      let vW = this.window.width - 50;
+      let vH = (this.window.height / 100) * 90;
+
+      if (vW < 1319) {
+        return Math.round(vW / 360) * Math.round(vH / 290);
+      } else
+        return Math.floor(
+          ((Math.round(vW / 420) * Math.round(vH / 300)) / 100) * 64
+        );
     },
   },
   created() {
@@ -55,11 +67,21 @@ export default {
 
 <style>
 #brewCardTable {
+  margin-top: 5px;
+  margin-bottom: 5px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
-  gap: 10px;
+  gap: 20px;
+  grid-area: beerCards;
+}
+
+@media only screen and (max-width: 768px) {
+  #brewCardTable {
+    justify-content: center;
+    align-items: flex-start;
+  }
 }
 </style>

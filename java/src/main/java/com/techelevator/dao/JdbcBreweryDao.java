@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +86,12 @@ public class JdbcBreweryDao implements BreweryDao{
         brewery.setWebsite_url(rs.getString("website_url"));
         brewery.setImage_url(rs.getString("image_url"));
         brewery.setTags(rs.getString("tags"));
+        brewery.setBrewery_desc(rs.getString("brewery_desc"));
+        brewery.setOpening_time(rs.getTime("opening_time"));
+        brewery.setClosing_time(rs.getTime("closing_time"));
+        brewery.setCost_rating(rs.getInt("cost_rating"));
+        brewery.setNoise_rating(rs.getInt("noise_rating"));
+        brewery.setThree_word_Desc(rs.getString("three_word_desc"));
         return brewery;
     }
 

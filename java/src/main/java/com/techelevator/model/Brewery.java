@@ -1,5 +1,8 @@
 package com.techelevator.model;
 
+import java.sql.Time;
+import java.time.LocalTime;
+
 public class Brewery {
       private long bb_brewery_id;
       private String brewery_id;
@@ -19,12 +22,12 @@ public class Brewery {
       private String latitude;
       private String image_url;
       private String tags;
-
-      public Brewery() {
-            //no-arg constructor
-      }
-
-      // 10-56-brewing-company-knox	10-56 Brewing Company	micro	400 Brown Cir	(null)	(null)	Knox	Indiana	(null)	46534	(null)	6308165790	United States	-86.627954	41.289715	(null)
+      private String brewery_desc;
+      private Time opening_time;
+      private Time closing_time;
+      private int cost_rating;
+      private int noise_rating;
+      private String three_word_Desc;
 
       public long getBb_brewery_id() {
             return bb_brewery_id;
@@ -114,6 +117,22 @@ public class Brewery {
             this.postal_code = postal_code;
       }
 
+      public String getWebsite_url() {
+            return website_url;
+      }
+
+      public void setWebsite_url(String website_url) {
+            this.website_url = website_url;
+      }
+
+      public String getPhone() {
+            return phone;
+      }
+
+      public void setPhone(String phone) {
+            this.phone = phone;
+      }
+
       public String getCountry() {
             return country;
       }
@@ -138,28 +157,12 @@ public class Brewery {
             this.latitude = latitude;
       }
 
-      public String getPhone() {
-            return phone;
-      }
-
-      public void setPhone(String phone) {
-            this.phone = phone;
-      }
-
-      public String getWebsite_url() {
-            return website_url;
-      }
-
-      public void setWebsite_url(String website_url) {
-            this.website_url = website_url;
+      public String getImage_url() {
+            return image_url;
       }
 
       public void setImage_url(String image_url) {
             this.image_url = image_url;
-      }
-
-      public String getImage_url() {
-            return image_url;
       }
 
       public String getTags() {
@@ -169,6 +172,63 @@ public class Brewery {
       public void setTags(String tags) {
             this.tags = tags;
       }
+
+      public String getBrewery_desc() {
+            return brewery_desc;
+      }
+
+      public void setBrewery_desc(String brewery_desc) {
+            this.brewery_desc = brewery_desc;
+      }
+
+      public Time getOpening_time() {
+            return opening_time;
+      }
+
+      public void setOpening_time(Time opening_time) {
+            this.opening_time = opening_time;
+      }
+
+      public Time getClosing_time() {
+            return closing_time;
+      }
+
+      public void setClosing_time(Time closing_time) {
+            this.closing_time = closing_time;
+      }
+
+      public Integer getCost_rating() {
+            return cost_rating;
+      }
+
+      public void setCost_rating(Integer cost_rating) {
+            this.cost_rating = cost_rating;
+      }
+
+      public Integer getNoise_rating() {
+            return noise_rating;
+      }
+
+      public void setNoise_rating(Integer noise_rating) {
+            this.noise_rating = noise_rating;
+      }
+
+      public String getThree_word_Desc() {
+            return three_word_Desc;
+      }
+
+      public void setThree_word_Desc(String three_word_Desc) {
+            this.three_word_Desc = three_word_Desc;
+      }
+
+      public Brewery() {
+            //no-arg constructor
+      }
+
+      // 10-56-brewing-company-knox	10-56 Brewing Company	micro	400 Brown Cir	(null)	(null)	Knox	Indiana	(null)	46534	(null)	6308165790	United States	-86.627954	41.289715	(null)
+
+
+
 
       @Override
       public String toString() {

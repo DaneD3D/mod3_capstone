@@ -98,6 +98,22 @@ export default {
 </script>
 
 <style scoped>
+.form-user {
+  display: flex;
+  gap: 10px;
+  margin-top: 15vh;
+  margin-left: 35vw;
+  margin-right: 35vw;
+  padding: 40px;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: #F9A333;
+  border-style: solid;
+  border-color: #2f3353;
+  border-width: .5em;
+}
+
 input {
   justify-content: center;
   border-radius: 10px;
