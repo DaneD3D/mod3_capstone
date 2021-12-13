@@ -37,8 +37,8 @@
           required
         />
       </div>
-      <router-link :to="{ name: 'register' }" class="brew-font-sm">Need an account?</router-link>
-      <button type="submit">Sign in</button>
+      <router-link :to="{ name: 'register' }" class="brew-font-sm" id="registerLink">Need an account?</router-link>
+      <button type="submit" id="submitButton">Sign in</button>
     </form>
   </div>
 </template>
@@ -108,6 +108,22 @@ input {
   justify-content: center;
   border-radius: 10px;
   padding: 12px 20px;
+  font-size: 24px;
+}
+
+#submitButton {
+  height: 40px;
+  font-size: 26px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+label{
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+
+#registerLink{
+  font-size: 24px;
 }
 
 </style>

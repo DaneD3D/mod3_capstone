@@ -1,31 +1,30 @@
 <template>
   <div id="brewCardPage">
-    <arrow-symbol
-      :click="pageRight"
-      class="navArrow"
-      id="leftArrow"
-    ></arrow-symbol>
-    <arrow-symbol
-      :click="pageLeft"
-      class="navArrow"
-      id="rightArrow"
-    ></arrow-symbol>
+    <button id="leftButton" v-on:click="pageDown" v-if="this.pageNumber != 1" class="pageButton">
+      <arrow-symbol
+        class="navArrow"
+        id="leftArrow"
+        v-if="this.pageNumber != 1"
+      />
+    </button>
+    <button id="rightButton" v-on:click="pageUp" class="pageButton">
+      <arrow-symbol class="navArrow" id="rightArrow"/>
+    </button>
     <div id="brewCardTable">
       <brewery-card
-        v-for="(brewery, index) in breweryShortList"
+        v-for="(brewery, index) in arrayPage"
         :key="brewery.name"
         :brewery="brewery"
         :id="`brewCard${index}`"
       />
     </div>
+    <h1 id="pageNum">Page: {{ this.pageNumber }}</h1>
   </div>
 </template>
 
 <script>
 import BreweryCard from "@/components/BreweryCard.vue";
 import ArrowSymbol from "@/assets/SVG/ArrowSymbol.vue";
-
-import BreweryService from "@/services/BreweryService.js";
 
 export default {
   name: "brew-card-display",
@@ -43,18 +42,26 @@ export default {
     ArrowSymbol,
   },
   methods: {
-    getBreweries() {
-      BreweryService.list().then((response) => {
-        this.$store.commit("SET_BREWERIES", response.data);
-      });
-    },
     handleResize() {
       this.window.width = window.innerWidth;
       this.window.height = window.innerHeight;
     },
-    pageRight() {},
+    pageUp() {
+      this.pageNumber = this.pageNumber + 1;
+    },
+    pageDown() {
+      if (this.page == 1) {
+        this.pageNumber = 1;
+      } else this.pageNumber = this.pageNumber - 1;
+    },
   },
   computed: {
+    arrayPage() {
+      return this.$store.getters.filteredList.slice(
+        (this.pageNumber - 1) * this.numOfCards,
+        this.pageNumber * this.numOfCards
+      );
+    },
     breweryShortList() {
       return this.$store.getters.filteredList.slice(0, this.numOfCards);
     },
@@ -71,7 +78,6 @@ export default {
     },
   },
   created() {
-    this.getBreweries();
     window.addEventListener("resize", this.handleResize);
     this.handleResize();
   },
@@ -89,19 +95,49 @@ export default {
   grid-template-areas: "arrowLeft brewCardDisplay arrowRight";
 }
 
+.pageButton {
+  background: transparent;
+  border: none;
+  font-size: 0;
+}
+
 #leftArrow {
-  grid-area: arrowLeft;
+  transform: translateX(-18%);
+  
   align-self: center;
 }
 
-#rightArrow {
+#leftButton{
+  grid-area: arrowLeft;
+}
+
+#rightButton{
   grid-area: arrowRight;
+}
+
+#rightArrow {
+  
   align-self: center;
   transform: rotateZ(180deg);
 }
 
+a {
+  text-decoration: none;
+}
+
 .navArrow {
   height: 100px;
+}
+#pageNum {
+  grid-area: brewCardDisplay;
+  position: absolute;
+  top: 96.5%;
+  left: 45%;
+  font-family: "Fredoka One", sans-serif;
+  font-weight: normal;
+  font-size: 22px;
+  text-decoration: none;
+  color: #2f3353;
 }
 
 #brewCardTable {

@@ -6,7 +6,7 @@
         {{ registrationErrorMsg }}
       </div>
 
-      <label for="username" class="sr-only brew-font-sm">Username</label>
+      <label for="username" class="sr-only label">Username</label>
       <input
         type="text"
         id="username"
@@ -17,7 +17,7 @@
         autofocus
       />
 
-      <label for="password" class="sr-only brew-font-sm">Password</label>
+      <label for="password" class="sr-only label">Password</label>
 
       <input
         type="password"
@@ -36,10 +36,10 @@
         required
       />
 
-      <router-link :to="{ name: 'login' }" class="brew-font-sm"
+      <router-link :to="{ name: 'login' }" class="label"
         >Already have an Account?</router-link
       >
-      <button class="btn btn-lg btn-primary btn-block" type="submit">
+      <button class="btn btn-lg btn-primary btn-block" type="submit" id="submitButton">
         Create Account
       </button>
     </form>
@@ -118,5 +118,25 @@ input {
   justify-content: center;
   border-radius: 10px;
   padding: 12px 20px;
+}
+
+#submitButton {
+  height: 40px;
+  font-size: 26px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.label{
+  font-family: "Fredoka One", sans-serif;
+  font-weight: 100;
+  font-size: 24px;
+  color: #2f3353;
+}
+
+input {
+  justify-content: center;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 24px;
 }
 </style>

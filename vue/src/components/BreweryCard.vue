@@ -29,7 +29,7 @@
         <h2 id="barName" class="brew-font-sm-wht">
           {{ breweryNameShort }}
         </h2>
-        <p id="barDescription" class="brew-font-sm-wht">
+        <p id="barDescription" class="cardDescription">
           {{ brewery.brewery_desc }}
         </p>
       </div>
@@ -76,6 +76,7 @@ export default {
   grid-template-areas:
     "top"
     "bot";
+  
 }
 
 #cardTop {
@@ -84,6 +85,14 @@ export default {
   grid-template-columns: 1fr 1fr;
   grid-template-columns: "topLeft topRight";
   padding: 6px;
+}
+
+.cardDescription {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 100;
+  font-size: 24px;
+  color: #fffefc;
+  text-decoration: none;
 }
 
 #noiseDisplay {
@@ -111,8 +120,15 @@ export default {
 }
 
 #cardBot {
+  position: relative;
+  transform: translateX(-2px);
   grid-area: bot;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
   width: 101%;
+  height: 101%;
   background-color: #2f3353;
 }
 
@@ -131,15 +147,14 @@ export default {
 }
 
 #barDescription {
-  position: relative;
-  top: 14px;
-  font-size: 16px;
-  padding: 2px;
+  font-size: 18px;
+  padding: 5px;
 }
 
 #barName {
-  position: relative;
-  transform: translate(7px, 7px);
+  margin-top: 2px;
+  padding: 4px;
+  
 }
 
 @media only screen and (max-width: 1319px) {

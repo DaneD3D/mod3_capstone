@@ -21,6 +21,8 @@
 import UserButton from "@/components/UserButton.vue";
 import LogoutLogo from "@/assets/SVG/LogoutLogo.vue";
 
+import BreweryService from "@/services/BreweryService.js";
+
 export default {
   components: {
     UserButton,
@@ -39,13 +41,21 @@ export default {
     toLogout() {
       this.$router.push({ name: "logout" });
     },
+    getBreweries() {
+      BreweryService.list().then((response) => {
+        this.$store.commit("SET_BREWERIES", response.data);
+      });
+    },
   },
+  created() {
+    this.getBreweries();
+  }
 };
 </script>
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -132,7 +142,7 @@ header {
   justify-self: end;
   align-self: center;
   height: auto;
-  width: 55px;
+  width: 75px;
 }
 
 body {

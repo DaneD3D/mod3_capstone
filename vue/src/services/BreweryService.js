@@ -8,5 +8,9 @@ export default {
 
     list() {
         return http.get('/homepage');
+    },
+
+    updateBrewery(brewery) {
+        return http.put(`/brewery/${brewery.bb_brewery_id}`, brewery)
     }
 }
