@@ -105,6 +105,7 @@ three_word_desc = 'Lorem ipsum dolor';
 */
 
 
+
 INSERT into beer (brewery_id, beer_name, abv, ibu, beer_type)
 VALUES ('1', 'mikes hard', '8' , '7', 'soda')
 
@@ -131,20 +132,38 @@ FROM beer
 WHERE beer_type = 'soda'
 
 
-
-
 SELECT *
 FROM brewery
 WHERE brewery_name LIKE '%sam%'
 
 
-SELECT beer_name
+SELECT beer_id, beer_name, abv, ibu, beer_type
 FROM beer
 INNER JOIN brewery ON beer.brewery_id = brewery.bb_brewery_id 
-WHERE brewery_name = '10-56 Brewing Company'
+WHERE brewery_name = 'Solemn Oath Brewery'
+
+SELECT * 
+FROM brewery
+WHERE brewery_name LIKE '%Oath%'
+
+
+INSERT into beer (brewery_id, beer_name, abv, ibu, beer_type)
+VALUES ('6541', 'Were All Misfits', '7' , null , 'Christmas Ale')
 
 
 
+INSERT into beer (brewery_id, beer_name, abv, ibu, beer_type)
+VALUES ('6541', 'Twisted Every Way', '6.5' , null , 'IPA')
+
+
+
+INSERT into beer (brewery_id, beer_name, abv, ibu, beer_type)
+VALUES ('6541', 'LU', '4.7' , null , 'Kolsch')
+
+
+
+delete from beer
+where beer_id = 6
 
  
  
