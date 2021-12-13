@@ -5,6 +5,8 @@ import com.techelevator.model.Brewery;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientResponseException;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -94,7 +96,13 @@ public class JdbcBreweryDao implements BreweryDao{
                 brewery.getPhone(), brewery.getCountry(), brewery.getLongitude(), brewery.getLatitude(), brewery.getImage_url(), brewery.getBrewery_desc(),
                 brewery.getOpening_time(), brewery.getClosing_time(), brewery.getCost_rating(), brewery.getNoise_rating(), brewery.getThree_word_Desc(),
                 brewery.getTags());
+    }
 
+    public boolean deleteBrewery(Integer brewery_id){
+        String sql = "DELETE FROM brewery WHERE bb_brewery_id = ?";
+        Object[] args = new Object[] {brewery_id};
+
+        return jdbcTemplate.update(sql, args) == 1;
     }
 
 
