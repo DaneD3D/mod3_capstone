@@ -11,13 +11,16 @@
     <div id="toggleFlags">
       <noise-flag></noise-flag>
       <money-flag></money-flag>
-      <input
-        type="text"
-        class="brew-font-sm"
-        name="brewerySearch"
-        id="searchField"
-        placeholder="Search by Name..."
-      />
+      <form v-on:submit.prevent="searchKeyword" id="searchForm">
+        <input
+          type="text"
+          class="brew-font-sm"
+          name="brewerySearch"
+          id="searchField"
+          placeholder="Search by City..."
+          v-model="keyword"
+        />
+      </form>
     </div>
     <brew-card-display></brew-card-display>
   </div>
@@ -31,12 +34,23 @@ import BrewCardDisplay from "@/components/BrewCardDisplay.vue";
 
 export default {
   name: "home",
+  data() {
+    return {
+      keyword: ''
+    }
+  },
   components: {
     BeerTypeFlag,
     NoiseFlag,
     MoneyFlag,
     BrewCardDisplay,
   },
+  methods: {
+    searchKeyword() {
+      this.$store.commit('SET_KEYWORD', this.keyword);
+      this.keyword = '';
+    }
+  }
 };
 </script>
 
@@ -77,15 +91,22 @@ export default {
   grid-area: toggles;
 }
 
-#searchField {
+#searchForm{
   height: 55px;
   width: 70%;
+  display: flex;
+}
+
+#searchField {
+  width: 100%;
+  height: 100%;
   border-style: solid;
   border-color: #2f3353;
   border-radius: 10px;
   padding-left: 25px;
-  border-width: 0.2em;
+  border-width: 0.25em;
   grid-area: toggles;
+  
 }
 
 

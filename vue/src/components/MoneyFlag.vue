@@ -15,7 +15,7 @@ export default {
   name: "money-flag",
   data() {
     return {
-      moneyLevel: 1,
+      moneyLevel: 0,
     };
   },
   methods: {

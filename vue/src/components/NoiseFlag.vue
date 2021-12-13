@@ -19,7 +19,7 @@ export default {
   name: "noise-flag",
   data() {
     return {
-      noiseLevel: 1,
+      noiseLevel: 0,
     };
   },
   methods: {

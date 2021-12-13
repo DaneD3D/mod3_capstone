@@ -12,24 +12,26 @@ Vue.use(Vuex)
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
 
-if(currentToken != null) {
+if (currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
 }
-import {getByNoiseLevel, getByMoneyLevel} from "@/store/filterMethods"
+import { getByNoiseLevel, getByMoneyLevel, getByKeyword, getById } from "@/store/filterMethods"
 
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
+    activeBreweryId: 0,
+    activeBrewery: {},
     beerType: ['Pilsner', 'Stout', 'Ale', 'IPA', 'Porter', 'Wheat', 'Special', 'Belgian'],
     breweryList: [],
-    moneyLevel: 1,
-    noiseLevel: 1,
+    moneyLevel: 0,
+    noiseLevel: 0,
     keywordTerm: ''
   },
   getters: {
     filteredList: state => {
-      return getByNoiseLevel(state.noiseLevel, getByMoneyLevel(state.moneyLevel, state.breweryList))
+      return getByNoiseLevel(state.noiseLevel, getByMoneyLevel(state.moneyLevel, getByKeyword(state.keywordTerm, state.breweryList)))
     }
   },
   mutations: {
@@ -40,7 +42,7 @@ export default new Vuex.Store({
     },
     SET_USER(state, user) {
       state.user = user;
-      localStorage.setItem('user',JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
     },
     LOGOUT(state) {
       localStorage.removeItem('token');
@@ -52,18 +54,25 @@ export default new Vuex.Store({
     SET_BREWERIES(state, data) {
       state.breweryList = data;
     },
+    SET_ACTIVE_BREWERY(state, breweryID){
+      state.activeBreweryId = breweryID;
+      getById(breweryID, state.breweryList)
+    },
     INCREMENT_MONEY_LEVEL(state) {
       if (state.moneyLevel == 3) {
-        state.moneyLevel = 1;
-      } else state.moneyLevel++;     
+        state.moneyLevel = 0;
+      } else state.moneyLevel++;
     },
-    INCREMENT_NOISE_LEVEL (state) {
+    INCREMENT_NOISE_LEVEL(state) {
       if (state.noiseLevel == 3) {
-        state.noiseLevel = 1;
+        state.noiseLevel = 0;
       } else state.noiseLevel++;
+    },
+    SET_KEYWORD(state, search) {
+      state.keywordTerm = search;
     }
   },
-  
+
 })
 
 

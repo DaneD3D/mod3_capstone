@@ -144,7 +144,7 @@ body {
 .brew-font-lg {
   font-family: "Fredoka One", sans-serif;
   font-weight: normal;
-  font-size: 32px;
+  font-size: 48px;
   text-decoration: none;
 }
 
