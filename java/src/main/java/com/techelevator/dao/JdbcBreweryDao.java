@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Beer;
 import com.techelevator.model.Brewery;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -63,6 +64,36 @@ public class JdbcBreweryDao implements BreweryDao{
         }
         return breweries;
     }
+
+//    //changed
+//    public void updateBrewery(Brewery brewery){
+//        String sql = "UPDATE brewery " +
+//                "SET brewery_id = ?, brewery_name = ?, brewery_type = ?, street = ?, " +
+//                "address_2 = ?, address_3 = ?, city = ?, state = ?, county_province = ?, " +
+//                "postal_code = ?, website_url = ?, phone = ?, country = ?, longitude = ?, latitude = ?, image_url = ?, " +
+//                "brewery_desc = ?, opening_time = ?, closing_time = ?, cost_rating = ?, noise_rating = ?, three_word_desc = ? tags = ?" +
+//                "WHERE bb_brewery_id = ?;";
+//
+//        //changed
+//
+//        jdbcTemplate.update(beer.getBeer_name(), beer.getAbv(),
+//                beer.getIbu(), beer.getBeer_type());
+//
+//    }
+//
+//
+//    public void addBrewery(Brewery brewery){
+//        String sql = "INSERT INTO brewery (brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, " +
+//                "state, county_province, postal_code, website_url, phone, country, longitude, latitude, image_url, brewery_desc, " +
+//                "opening_time, closing_time, cost_rating, noise_rating, three_word_desc, tags) " +
+//
+//                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//        jdbcTemplate.
+//
+//    }
+
+
+
 
 
     // Takes the database stuff and puts it into a Java Object ("Brewery")
