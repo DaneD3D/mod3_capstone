@@ -13,4 +13,8 @@ public interface BreweryDao {
    List<Brewery> findBreweryByZipCode(String zipCode);
 
    List<Brewery> displayHomePage();
+
+   void updateBrewery(Brewery brewery);
+
+   void addBrewery(Brewery brewery);
 }

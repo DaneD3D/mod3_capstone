@@ -65,31 +65,38 @@ public class JdbcBreweryDao implements BreweryDao{
     }
 
 //    //changed
-//    public void updateBrewery(Brewery brewery){
-//        String sql = "UPDATE brewery " +
-//                "SET brewery_id = ?, brewery_name = ?, brewery_type = ?, street = ?, " +
-//                "address_2 = ?, address_3 = ?, city = ?, state = ?, county_province = ?, " +
-//                "postal_code = ?, website_url = ?, phone = ?, country = ?, longitude = ?, latitude = ?, image_url = ?, " +
-//                "brewery_desc = ?, opening_time = ?, closing_time = ?, cost_rating = ?, noise_rating = ?, three_word_desc = ? tags = ?" +
-//                "WHERE bb_brewery_id = ?;";
-//
-//        //changed
-//
-//        jdbcTemplate.update(beer.getBeer_name(), beer.getAbv(),
-//                beer.getIbu(), beer.getBeer_type());
-//
-//    }
-//
-//
-//    public void addBrewery(Brewery brewery){
-//        String sql = "INSERT INTO brewery (brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, " +
-//                "state, county_province, postal_code, website_url, phone, country, longitude, latitude, image_url, brewery_desc, " +
-//                "opening_time, closing_time, cost_rating, noise_rating, three_word_desc, tags) " +
-//
-//                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//        jdbcTemplate.
-//
-//    }
+    public void updateBrewery(Brewery brewery){
+        String sql = "UPDATE brewery " +
+                "SET brewery_id = ?, brewery_name = ?, brewery_type = ?, street = ?, " +
+                "address_2 = ?, address_3 = ?, city = ?, state = ?, county_province = ?, " +
+                "postal_code = ?, website_url = ?, phone = ?, country = ?, longitude = ?, latitude = ?, image_url = ?, " +
+                "brewery_desc = ?, opening_time = ?, closing_time = ?, cost_rating = ?, noise_rating = ?, three_word_desc = ? tags = ?" +
+                "WHERE bb_brewery_id = ?;";
+
+        //changed
+
+        jdbcTemplate.update(brewery.getBrewery_id(), brewery.getBrewery_name(), brewery.getBrewery_type(), brewery.getStreet(), brewery.getAddress_2(),
+                brewery.getAddress_3(), brewery.getCity(), brewery.getState(), brewery.getCounty_province(), brewery.getPostal_code(), brewery.getWebsite_url(),
+                brewery.getPhone(), brewery.getCountry(), brewery.getLongitude(), brewery.getLatitude(), brewery.getImage_url(), brewery.getBrewery_desc(),
+                brewery.getOpening_time(), brewery.getClosing_time(), brewery.getCost_rating(), brewery.getNoise_rating(), brewery.getThree_word_Desc(),
+                brewery.getTags());
+
+    }
+
+
+    public void addBrewery(Brewery brewery){
+        String sql = "INSERT INTO brewery (brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, " +
+                "state, county_province, postal_code, website_url, phone, country, longitude, latitude, image_url, brewery_desc, " +
+                "opening_time, closing_time, cost_rating, noise_rating, three_word_desc, tags) " +
+
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        long newBrewery = jdbcTemplate.queryForObject(sql, Long.class, brewery.getBrewery_id(), brewery.getBrewery_name(), brewery.getBrewery_type(), brewery.getStreet(), brewery.getAddress_2(),
+                brewery.getAddress_3(), brewery.getCity(), brewery.getState(), brewery.getCounty_province(), brewery.getPostal_code(), brewery.getWebsite_url(),
+                brewery.getPhone(), brewery.getCountry(), brewery.getLongitude(), brewery.getLatitude(), brewery.getImage_url(), brewery.getBrewery_desc(),
+                brewery.getOpening_time(), brewery.getClosing_time(), brewery.getCost_rating(), brewery.getNoise_rating(), brewery.getThree_word_Desc(),
+                brewery.getTags());
+
+    }
 
 
 

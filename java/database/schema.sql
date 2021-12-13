@@ -58,7 +58,7 @@ CREATE TABLE brewery (
 	CONSTRAINT PK_brewery PRIMARY KEY(bb_brewery_id)	
         ); 
 
-        
+  
 CREATE TABLE beer (
     beer_id serial,
     brewery_id int not null,
