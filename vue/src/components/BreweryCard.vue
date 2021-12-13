@@ -6,7 +6,7 @@
   <h1>{{brewery.noise_rating}}</h1>
   <h1>{{brewery.cost_rating}}</h1>
     <div id="cardOverlay"></div>
-    <div id="cardContent">
+    <div id="cardTabContent">
       <h2 id="barName" class="brew-font-sm-wht">{{ brewery.brewery_name }}</h2>
       <p id="barDescription" class="brew-font-sm-wht">{{brewery.brewery_desc}}</p>
     </div>
@@ -70,9 +70,9 @@ export default {
   opacity: 0.8;
 }
 
-#cardContent {
+#cardTabContent {
   position: relative;
-  top: 51px;
+  top: 15px;
   left: 4px;
 }
 
