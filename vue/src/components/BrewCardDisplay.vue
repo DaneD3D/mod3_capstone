@@ -1,7 +1,15 @@
 <template>
   <div id="brewCardPage">
-    <arrow-symbol :click="pageRight" class="navArrow" id="leftArrow"></arrow-symbol>
-    <arrow-symbol :click="pageLeft" class="navArrow" id="rightArrow"></arrow-symbol>
+    <arrow-symbol
+      :click="pageRight"
+      class="navArrow"
+      id="leftArrow"
+    ></arrow-symbol>
+    <arrow-symbol
+      :click="pageLeft"
+      class="navArrow"
+      id="rightArrow"
+    ></arrow-symbol>
     <div id="brewCardTable">
       <brewery-card
         v-for="(brewery, index) in breweryShortList"
@@ -9,7 +17,6 @@
         :brewery="brewery"
         :id="`brewCard${index}`"
       />
-      
     </div>
   </div>
 </template>
@@ -28,7 +35,7 @@ export default {
         width: 0,
         height: 0,
       },
-      pageNumber: 1
+      pageNumber: 1,
     };
   },
   components: {
@@ -45,9 +52,7 @@ export default {
       this.window.width = window.innerWidth;
       this.window.height = window.innerHeight;
     },
-    pageRight() {
-
-    }
+    pageRight() {},
   },
   computed: {
     breweryShortList() {
@@ -82,7 +87,6 @@ export default {
   display: grid;
   grid-template-columns: 50px 90vw 50px;
   grid-template-areas: "arrowLeft brewCardDisplay arrowRight";
-  
 }
 
 #leftArrow {
@@ -93,6 +97,7 @@ export default {
 #rightArrow {
   grid-area: arrowRight;
   align-self: center;
+  transform: rotateZ(180deg);
 }
 
 .navArrow {
