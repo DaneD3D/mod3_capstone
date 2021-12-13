@@ -1,7 +1,7 @@
 <template>
   <div v-on:click="changeAmount" class="moneyFlag">
     <h2 class="brew-font-sm">Cost</h2>
-    <dollar-sign v-for="index in moneyLevel" :key="index" class="toggleImage"></dollar-sign>
+    <dollar-sign v-for="index in this.moneyLevel" :key="index" class="toggleImage"></dollar-sign>
   </div>
 </template>
 
@@ -20,9 +20,8 @@ export default {
   },
   methods: {
     changeAmount() {
-      if (this.moneyLevel == 3) {
-        this.moneyLevel = 1;
-      } else this.moneyLevel++;
+       this.$store.commit('INCREMENT_MONEY_LEVEL');
+       this.moneyLevel = this.$store.state.moneyLevel;
     },
   },
 };

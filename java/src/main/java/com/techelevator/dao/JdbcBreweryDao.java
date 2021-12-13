@@ -38,11 +38,10 @@ public class JdbcBreweryDao implements BreweryDao{
         //loop through bb_brewery_id, increment by one
         //filter by ones in chicago
         List<Brewery> breweries = new ArrayList<>();
-        String city = "Chicago";
         String sql = "SELECT * " +
                      "FROM brewery " +
                      "WHERE city = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, city);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while(results.next()) {
             Brewery brewery = mapRowToBrewery(results);
             breweries.add(brewery);

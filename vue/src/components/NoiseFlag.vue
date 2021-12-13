@@ -1,13 +1,16 @@
 <template>
   <div v-on:click="changeAmount" class="noiseFlag">
     <h2 class="brew-font-sm">Noise</h2>
-    <music-note v-for="index in noiseLevel" :key="index" class="toggleImage"></music-note>
+    <music-note
+      v-for="index in noiseLevel"
+      :key="index"
+      class="toggleImage"
+    ></music-note>
   </div>
 </template>
 
 <script>
 import MusicNote from "@/assets/SVG/MusicNote.vue";
-
 
 export default {
   components: {
@@ -21,9 +24,8 @@ export default {
   },
   methods: {
     changeAmount() {
-      if (this.noiseLevel == 3) {
-        this.noiseLevel = 1;
-      } else this.noiseLevel++;
+      this.$store.commit("INCREMENT_NOISE_LEVEL");
+      this.noiseLevel = this.$store.state.noiseLevel;
     },
   },
 };
@@ -34,9 +36,9 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #FFFEFC;
+  background-color: #fffefc;
   border-style: solid;
-  border-color: #2F3353;
+  border-color: #2f3353;
   border-radius: 10px;
   width: 10%;
   height: 55px;
@@ -44,7 +46,7 @@ export default {
   padding-right: 5px;
 }
 
-.toggleImage{
+.toggleImage {
   height: 28px;
   width: auto;
 }

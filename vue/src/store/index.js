@@ -15,6 +15,7 @@ const currentUser = JSON.parse(localStorage.getItem('user'));
 if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
 }
+import {getByNoiseLevel, getByMoneyLevel} from "@/store/filterMethods"
 
 export default new Vuex.Store({
   state: {
@@ -22,6 +23,14 @@ export default new Vuex.Store({
     user: currentUser || {},
     beerType: ['Pilsner', 'Stout', 'Ale', 'IPA', 'Porter', 'Wheat', 'Special', 'Belgian'],
     breweryList: [],
+    moneyLevel: 1,
+    noiseLevel: 1,
+    keywordTerm: ''
+  },
+  getters: {
+    filteredList: state => {
+      return getByNoiseLevel(state.noiseLevel, getByMoneyLevel(state.moneyLevel, state.breweryList))
+    }
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -42,7 +51,19 @@ export default new Vuex.Store({
     },
     SET_BREWERIES(state, data) {
       state.breweryList = data;
+    },
+    INCREMENT_MONEY_LEVEL(state) {
+      if (state.moneyLevel == 3) {
+        state.moneyLevel = 1;
+      } else state.moneyLevel++;     
+    },
+    INCREMENT_NOISE_LEVEL (state) {
+      if (state.noiseLevel == 3) {
+        state.noiseLevel = 1;
+      } else state.noiseLevel++;
     }
-
-  }
+  },
+  
 })
+
+
