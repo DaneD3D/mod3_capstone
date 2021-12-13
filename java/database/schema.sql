@@ -28,7 +28,9 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 CREATE TABLE brewery (
 	bb_brewery_id serial,
         brewery_id varchar(80),
+        
         --owner_id int not null,
+        
         brewery_name varchar(80),
         brewery_type varchar(20),
         street varchar(100),
@@ -44,37 +46,38 @@ CREATE TABLE brewery (
         longitude varchar(30),
         latitude varchar(30),
         image_url varchar(120),
+        
         brewery_desc varchar(250),
         opening_time time(0),
         closing_time time(0),
         cost_rating integer,
         noise_rating integer,
         three_word_desc varchar(20),
+        
         tags varchar(10),
 	CONSTRAINT PK_brewery PRIMARY KEY(bb_brewery_id)	
         ); 
 
         
 CREATE TABLE beer (
-    bb_beer_id serial,
-    beer_id int not null,
+    beer_id serial,
     brewery_id int not null,
     beer_name varchar(50) not null,
     abv decimal not null,
     ibu int,
     beer_type varchar(50),
-    CONSTRAINT PK_beer PRIMARY KEY(bb_beer_id),
-    CONSTRAINT FK_beer_brewery FOREIGN KEY(bb_beer_id) REFERENCES brewery(bb_brewery_id)  
+    CONSTRAINT PK_beer PRIMARY KEY(beer_id),
+    CONSTRAINT FK_beer_brewery FOREIGN KEY(brewery_id) REFERENCES brewery(bb_brewery_id)  
 );
         
 
-COMMIT TRANSACTION;
+COMMIT TRANSACTION
 
 -- Import breweries. Uncomment and add the ABSOLUTE PATH of the CSV file in FROM
 
 /*
 COPY brewery(brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, state, county_province, postal_code, website_url, phone, country, longitude, latitude, tags)
-FROM 'D:\TechElevator\workspace\capstone-nlr4-blue-brewery\java\database\breweries.csv'
+FROM 'C:\Users\Student\workspace\capstone-nlr4-blue-brewery\java\database\breweries.csv'
 DELIMITER ','
 CSV HEADER;
 */
@@ -101,3 +104,47 @@ noise_rating = random() * 2 + 1,
 three_word_desc = 'Lorem ipsum dolor';
 */
 
+
+INSERT into beer (brewery_id, beer_name, abv, ibu, beer_type)
+VALUES ('1', 'mikes hard', '8' , '7', 'soda')
+
+
+INSERT into beer (brewery_id, beer_name, abv, ibu, beer_type)
+VALUES ('1', 'miller', '8' , '7', 'ale')
+
+
+UPDATE beer
+SET beer_name = 'miller', abv = '3', ibu = '2', beer_type = 'ipa'
+WHERE bb_beer_id = 4
+
+INSERT INTO brewery (brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, state, county_province, postal_code, website_url, phone, country, longitude, latitude, image_url, brewery_desc, opening_time, closing_time, cost_rating, noise_rating, three_word_desc, tags) 
+VALUES ('sams bar', 'sams bar', 'new', '123 fake street', '2', '3', 'chicago', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+ 
+ 
+INSERT INTO brewery (brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, state) 
+VALUES ('sams bar2', 'sams bar2', 'new', '1234 fake street', 'null', 'null', 'chicago', null)
+
+
+
+SELECT *
+FROM beer
+WHERE beer_type = 'soda'
+
+
+
+
+SELECT *
+FROM brewery
+WHERE brewery_name LIKE '%sam%'
+
+
+SELECT beer_name
+FROM beer
+INNER JOIN brewery ON beer.brewery_id = brewery.bb_brewery_id 
+WHERE brewery_name = '10-56 Brewing Company'
+
+
+
+
+ 
+ 

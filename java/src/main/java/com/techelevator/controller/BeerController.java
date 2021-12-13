@@ -17,4 +17,7 @@ public class BeerController {
     public Beer getBeerWithName(@PathVariable("name") String name) {
     return beerDao.findBeerWithName(name);
     }
+
+
+
 }
