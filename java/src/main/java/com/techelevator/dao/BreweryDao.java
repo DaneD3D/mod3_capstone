@@ -14,7 +14,9 @@ public interface BreweryDao {
 
    List<Brewery> displayHomePage();
 
-   void updateBrewery(Brewery brewery);
+   void updateBrewery(Brewery updatedBrewery);
 
    void addBrewery(Brewery brewery);
+
+   boolean deleteBrewery(Integer brewery_id);
 }

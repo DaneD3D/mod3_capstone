@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Beer;
 import com.techelevator.model.Brewery;
+import org.springframework.http.HttpEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
@@ -65,24 +66,26 @@ public class JdbcBreweryDao implements BreweryDao{
         return breweries;
     }
 
+
 //    //changed
     public void updateBrewery(Brewery brewery){
         String sql = "UPDATE brewery " +
                 "SET brewery_id = ?, brewery_name = ?, brewery_type = ?, street = ?, " +
                 "address_2 = ?, address_3 = ?, city = ?, state = ?, county_province = ?, " +
                 "postal_code = ?, website_url = ?, phone = ?, country = ?, longitude = ?, latitude = ?, image_url = ?, " +
-                "brewery_desc = ?, opening_time = ?, closing_time = ?, cost_rating = ?, noise_rating = ?, three_word_desc = ? tags = ?" +
+                "brewery_desc = ?, opening_time = ?, closing_time = ?, cost_rating = ?, noise_rating = ?, three_word_desc = ?, tags = ? " +
                 "WHERE bb_brewery_id = ?;";
 
         //changed
 
-        jdbcTemplate.update(brewery.getBrewery_id(), brewery.getBrewery_name(), brewery.getBrewery_type(), brewery.getStreet(), brewery.getAddress_2(),
+        jdbcTemplate.update(sql, brewery.getBrewery_id(), brewery.getBrewery_name(), brewery.getBrewery_type(), brewery.getStreet(), brewery.getAddress_2(),
                 brewery.getAddress_3(), brewery.getCity(), brewery.getState(), brewery.getCounty_province(), brewery.getPostal_code(), brewery.getWebsite_url(),
                 brewery.getPhone(), brewery.getCountry(), brewery.getLongitude(), brewery.getLatitude(), brewery.getImage_url(), brewery.getBrewery_desc(),
                 brewery.getOpening_time(), brewery.getClosing_time(), brewery.getCost_rating(), brewery.getNoise_rating(), brewery.getThree_word_Desc(),
-                brewery.getTags());
+                brewery.getTags(), brewery.getBb_brewery_id());
 
     }
+
 
 
     public void addBrewery(Brewery brewery){
@@ -98,15 +101,13 @@ public class JdbcBreweryDao implements BreweryDao{
                 brewery.getTags());
     }
 
-    public boolean deleteBrewery(Integer brewery_id){
+
+    public boolean deleteBrewery(Integer brewery_id) {
         String sql = "DELETE FROM brewery WHERE bb_brewery_id = ?";
         Object[] args = new Object[] {brewery_id};
 
         return jdbcTemplate.update(sql, args) == 1;
     }
-
-
-
 
 
     // Takes the database stuff and puts it into a Java Object ("Brewery")
