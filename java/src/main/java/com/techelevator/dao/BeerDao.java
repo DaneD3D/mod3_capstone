@@ -8,7 +8,7 @@ public interface BeerDao {
 
     Beer findBeerWithName(String name);
 
-    Beer findBeerByBrewery(String beerName);
+    List<Beer> findBeerByBrewery(String beerName);
 
     Beer findBeerByType(String beerType);
 
@@ -17,4 +17,6 @@ public interface BeerDao {
     void addBeerToBrewery(Beer beer);
 
     void updateBeer(Beer beer);
+
+    Beer viewBeerInformation(String beerName);
 }

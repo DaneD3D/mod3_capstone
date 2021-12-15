@@ -76,17 +76,8 @@ GRANT USAGE, SELECT
 ON ALL sequences IN SCHEMA public
 TO final_capstone_appuser;
 
-UPDATE brewery
-SET image_url = 'https://picsum.photos/800/600',
-brewery_desc = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis
-        unde totam nesciunt magni molestiae numquam provident quia explicabo,
-        iusto omnis laudantium temporibus? Perferendis exercitationem sapiente
-        cupiditate',
-opening_time = '09:10:00',
-closing_time = '16:30:00',
-cost_rating = random() * 2 + 1,
-noise_rating = random() * 2 + 1,
-three_word_desc = 'Lorem ipsum dolor';
+
+
  
 DROP TABLE IF EXISTS beer_manifest CASCADE;
  CREATE TABLE beer_manifest (
@@ -98,7 +89,7 @@ DROP TABLE IF EXISTS beer_manifest CASCADE;
         );   
         
 COPY brewery(brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, state, county_province, postal_code, website_url, phone, country, longitude, latitude, tags)
-FROM 'D:\TechElevator\workspace\capstone-nlr4-blue-brewery\java\database\breweries.csv'
+FROM 'C:\Users\Kevin\workspace\capstone-nlr4-blue-brewery\java\database\breweries.csv'
 DELIMITER ','
 CSV HEADER;
 
@@ -107,7 +98,16 @@ grant all on sequence seq_user_id to  final_capstone_appuser;
 COMMIT TRANSACTION
 
 
-
+SET image_url = 'https://picsum.photos/800/600',
+brewery_desc = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis
+        unde totam nesciunt magni molestiae numquam provident quia explicabo,
+        iusto omnis laudantium temporibus? Perferendis exercitationem sapiente
+        cupiditate',
+opening_time = '09:10:00',
+closing_time = '16:30:00',
+cost_rating = random() * 2 + 1,
+noise_rating = random() * 2 + 1,
+three_word_desc = 'Lorem ipsum dolor';
 
 
 

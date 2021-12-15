@@ -4,6 +4,9 @@ import com.techelevator.dao.BeerDao;
 import com.techelevator.model.Beer;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class BeerController {
@@ -23,6 +26,18 @@ public class BeerController {
         System.out.println("Controller reached");
         beerDao.addBeerToBrewery(beer);
         return beer;
+    }
+
+    @RequestMapping(path= "/beer/desc/{name}", method = RequestMethod.GET)
+    public Beer viewBeerInfo(@PathVariable("name") String name) {
+        return beerDao.viewBeerInformation(name);
+    }
+
+    @RequestMapping(path= "/brewery/{name}/beers", method = RequestMethod.GET)
+    public List<Beer> viewBreweryBeers(@PathVariable("name") String name) {
+        System.out.println("Controller reached");
+        List<Beer> beerResults = beerDao.findBeerByBrewery(name);
+        return beerResults;
     }
 
 }
