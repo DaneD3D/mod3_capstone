@@ -16,5 +16,13 @@ export default {
 
     deleteBrewery(brewery_id) {
         return http.delete(`/brewery/delete/${brewery_id}`);
+    },
+
+    getBreweryBeerMenu(brewery_id) {
+        return http.get(`/brewery/${brewery_id}/beers`);
+    },
+
+    addBeer(beer) {
+        return http.post(`/beer/add`, beer);
     }
 }

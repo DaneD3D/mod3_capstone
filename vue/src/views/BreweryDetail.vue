@@ -28,29 +28,35 @@
           >{{ this.brewery.brewery_name }}.com</a
         >
       </dir>
+      <div id="adminBreweryOptions" v-if="isAdmin">
+        <button class="adminButtons" id="editButton" @click="flipEdit">EDIT</button>
+        <button class="adminButtons" id="deleteButton" @click="deleteBrewery">DELETE</button>
+      </div>
     </div>
 
     <div id="barBody" class="bodyObject">
-      <div id="adminBreweryOptions" v-if="isAdmin">
-        <button id="editButton" @click="flipEdit">EDIT</button>
-        <button id="deleteButton" @click="deleteBrewery">DELETE</button>
-      </div>
       <ol id="breweryInformation">
+        <li>Hours of Operation:</li>
         <li class="infoItem">
-          {{ this.brewery.opening_time }} - {{ this.brewery.closing_time }}
+          {{ openingTime }} - {{ this.brewery.closing_time }}
         </li>
         <br />
+        <li>Type of Brewery:</li>
         <li class="infoItem">{{ this.brewery.brewery_type }} Brewery</li>
         <br />
+        <li>Abut Us:</li>
         <li class="infoItem">{{ this.brewery.brewery_desc }}</li>
         <br />
+        <li>Phone:</li>
         <li class="infoItem">{{ this.brewery.phone }}</li>
         <br />
-        <li class="infoItem">{{ this.brewery.country }}</li>
-        <li class="infoItem">{{ this.brewery.state }}</li>
+        <li>Address:</li>
+        <li class="infoItem">{{this.brewery.street}}</li>        
+        <li class="infoItem">{{ this.brewery.city }} , {{ this.brewery.state }}</li>
         <li class="infoItem">
-          {{ this.brewery.city }} {{ this.brewery.postal_code }}
+           {{ this.brewery.postal_code }}
         </li>
+        <li class="infoItem">{{ this.brewery.country }}</li>
       </ol>
     </div>
 
@@ -138,13 +144,9 @@
         />
         <input type="submit" />
       </form>
-      <ul v-else>
-        <li>Beer 1</li>
-        <li>Beer 2</li>
+      <ul v-else id="barBeerMenu">
+        <li id="beerCapsule" v-for="beer in beerMenu" v-bind:key="beer">{{beer.beer_name}}</li>
       </ul>
-    </div>
-    <div id="barSocial" class="bodyObject">
-      <p>Comments!</p>
     </div>
   </div>
 </template>
@@ -161,6 +163,25 @@ export default {
     return {
       currentBrewery: {},
 
+      beerMenu: [
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Budweiser", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
+      ],
+
       errorMsg: "",
 
       editMode: false,
@@ -173,6 +194,7 @@ export default {
   mounted() {
     this.$store.commit("SET_ACTIVE_BREWERY", this.$route.params.id);
     this.currentBrewery = this.$store.state.activeBrewery;
+    //this.getBeerMenu();
   },
   computed: {
     brewery() {
@@ -239,6 +261,11 @@ export default {
         this.$store.commit("SET_BREWERIES", response.data);
       });
     },
+    getBeerMenu() {
+      BreweryService.getBreweryBeerMenu(this.currentBrewery.bb_brewery_id).then((response) => {
+        this.beerMenu = response.data;
+      })
+    }
   },
 };
 </script>
@@ -248,12 +275,11 @@ export default {
   display: grid;
   height: 87vh;
   grid-template-columns: 1fr 3fr 3fr 3fr 1fr;
-  grid-template-rows: 1fr 2fr 2fr 1fr;
+  grid-template-rows: 1fr 2fr 2fr;
   grid-template-areas:
     ". head head head ."
     ". body menu menu ."
-    ". body menu menu ."
-    ". social social social .";
+    ". body menu menu .";
   gap: 13px;
   margin-top: 20px;
   margin-left: 25px;
@@ -270,6 +296,7 @@ export default {
 .infoItem {
   margin-top: 5px;
   margin-bottom: 5px;
+  font-size: 19px;
 }
 
 #barHead {
@@ -279,7 +306,7 @@ export default {
   grid-template-areas:
     "title ."
     "rating ."
-    "link .";
+    "link admin";
   width: auto;
   grid-area: head;
   background: rgb(249, 163, 51);
@@ -289,10 +316,22 @@ export default {
     rgba(249, 163, 51, 1) 59%,
     rgba(249, 163, 51, 0) 85%
   );
+  border-style: solid;
+  border-color: #2f3353;
+  border-width: 6.5px;
+}
+
+#adminBreweryOptions{
+  display: flex;
+  justify-content: flex-end;
+  grid-area: admin;
+  gap: 9px;
 }
 
 #noiseMoney {
   grid-area: rating;
+  margin-top: 14px;
+  margin-bottom: 14px;
 }
 
 #moneyDisplay {
@@ -309,15 +348,17 @@ export default {
 }
 
 #webLink {
+  
   grid-area: link;
   margin-top: 5px;
 }
 
 #brewLink {
-  font-family: "Fredoka One", sans-serif;
-  font-weight: 100;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 900;
   font-size: 24px;
   color: #2f3353;
+  text-decoration: underline;
 }
 
 #barTitle {
@@ -333,6 +374,9 @@ export default {
 #barBody {
   grid-area: body;
   background-color: #2f3353;
+  border-style: solid;
+  border-color: #F9A333;
+  border-width: 6px;
 }
 
 #editInfoForm {
@@ -342,6 +386,20 @@ export default {
 #barMenu {
   grid-area: menu;
   background-color: cadetblue;
+}
+
+#barBeerMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#beerCapsule{
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 800;
+  background-color: #F9A333;
+  padding: 10px;
+  font-size: 17px;
 }
 
 #breweryForm {
@@ -358,4 +416,17 @@ export default {
   border-radius: 15px;
   padding: 15px;
 }
+
+.adminButtons{
+  width: 100px;
+  padding: 5px;
+}
+
+@media only screen and (max-width: 1319px) {
+  .infoItem{
+    font-size: 17px;
+  }
+}
+
+
 </style>
