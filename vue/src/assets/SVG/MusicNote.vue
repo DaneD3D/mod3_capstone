@@ -25,5 +25,6 @@ export default {
 .musicLayer {
   fill: #f9a333;
   stroke: #2f3353;
+  stroke-width: .08em;
 }
 </style>
