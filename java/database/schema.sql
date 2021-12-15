@@ -206,17 +206,18 @@ WHERE bb_brewery_id = 1;
 INSERT into beer_manifest (beer_id, bb_brewery_id)
 VALUES ( (SELECT beer_id
           FROM beer
-          WHERE beer_name = 'budlight'),
+          WHERE beer_name = 'Twisted Every Way'),
           
           (SELECT bb_brewery_id
           FROM brewery
-          WHERE brewery_name = 'sams bar') );
+          WHERE brewery_name = '10-56 Brewing Company') );
           
         
 
 
 SELECT  beer_name, abv, ibu, beer_type
-FROM beer
-INNER JOIN beer_manifest ON beer.beer_name = beer_manifest.brewery_name
-WHERE brewery_name = 'sams bar'
+from beer
+INNER JOIN beer_manifest ON beer.beer_id = beer_manifest.beer_id
+INNER JOIN brewery on beer_manifest.bb_brewery_id = brewery.bb_brewery_id
+WHERE brewery_name = '10-56 Brewing Company'
         
