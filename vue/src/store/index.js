@@ -56,8 +56,13 @@ export default new Vuex.Store({
     },
     SET_ACTIVE_BREWERY(state, breweryID){
       state.activeBreweryId = breweryID;
-      getById(breweryID, state.breweryList)
+      state.activeBrewery = getById(breweryID, state.breweryList);
     },
+    /*
+    UPDATE_ACTIVE_BREWERY(state, newBrewery){
+      
+    },
+    */
     INCREMENT_MONEY_LEVEL(state) {
       if (state.moneyLevel == 3) {
         state.moneyLevel = 0;

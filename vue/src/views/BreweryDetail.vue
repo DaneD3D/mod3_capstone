@@ -11,12 +11,12 @@
         <music-note
           id="noiseDisplay"
           v-for="index in brewery.noise_rating"
-          :key="index"
+          :key="`noise${index}`"
         />
         <dollar-sign
           id="moneyDisplay"
           v-for="index in brewery.cost_rating"
-          :key="index"
+          :key="`money${index}`"
         />
       </div>
       <dir id="webLink">
@@ -32,6 +32,7 @@
 
     <div id="barBody" class="bodyObject">
       <button id="editButton" @click="flipEdit">EDIT</button>
+      <button id="deleteButton" @click="">DELETE</button>
       <ol id="breweryInformation">
         <li class="infoItem">
           {{ this.brewery.opening_time }} - {{ this.brewery.closing_time }}
@@ -58,42 +59,43 @@
         id="breweryForm"
       >
         <label for="brewName">Brewery Name</label>
-        <input type="text" name="brewName" id="" v-model.lazy="brewery_name" />
+        <input type="text" name="brewName" id="" v-model="currentBrewery.brewery_name" />
         <label for="brewType">Type of Brewery:</label>
-        <input type="text" name="brewType" id="" v-model.lazy="brewery_type" />
+        <input type="text" name="brewType" id="" v-model="currentBrewery.brewery_type" />
         <label for="street">Street</label>
-        <input type="text" name="street" id="" v-model.lazy="street" />
+        <input type="text" name="street" id="" v-model="currentBrewery.street" />
         <label for="city">City</label>
-        <input type="text" name="city" id="" v-model.lazy="city" />
+        <input type="text" name="city" id="" v-model="currentBrewery.city" />
         <label for="state">State</label>
-        <input type="text" name="state" id="" v-model.lazy="state" />
+        <input type="text" name="state" id="" v-model="currentBrewery.state" />
         <label for="postalCode">Postal Code</label>
-        <input type="text" name="postalCode" id="" v-model.lazy="postal_code" />
+        <input type="text" name="postalCode" id="" v-model="currentBrewery.postal_code" />
         <label for="phone">Phone</label>
-        <input type="text" name="phone" id="" v-model.lazy="phone" />
+        <input type="text" name="phone" id="" v-model="currentBrewery.phone" />
         <label for="country">Country</label>
-        <input type="text" name="country" id="" v-model.lazy="country" />
+        <input type="text" name="country" id="" v-model="currentBrewery.country" />
         <label for="imageUrl">Image URL</label>
-        <input type="text" name="imageUrl" id="" v-model.lazy="imageUrl" />
+        <input type="text" name="imageUrl" id="" v-model="currentBrewery.image_url" />
         <label for="brewDesc">Brewery Description</label>
-        <input type="text" name="brewDesc" id="" v-model.lazy="brewery_desc" />
+        <input type="text" name="brewDesc" id="" v-model="currentBrewery.brewery_desc" />
         <label for="threeWord">Three Word Description</label>
         <input
           type="text"
           name="threeWord"
           id=""
-          v-model.lazy="three_word_desc"
+          v-model="currentBrewery.three_word_desc"
         />
         <label for="openTime">Opens At</label>
-        <input type="time" name="openTime" id="" v-model.lazy="openingTime" />
+        <input type="time" name="openTime" id="" v-model="currentBrewery.openingTime" />
         <label for="closeTime">Closes At</label>
-        <input type="time" name="closeTime" id="" v-model.lazy="closing_time" />
+        <input type="time" name="closeTime" id="" v-model="currentBrewery.closing_time" />
         <input type="submit" />
       </form>
       <ul v-else>
         <li>Beer 1</li>
         <li>Beer 2</li>
       </ul>
+      
     </div>
     <div id="barSocial" class="bodyObject">
       <p>Comments!</p>
@@ -111,19 +113,7 @@ export default {
   name: "brewery-detail",
   data() {
     return {
-      brewery_name: "",
-      brewery_type: "",
-      street: "",
-      city: "",
-      state: "",
-      postal_code: "",
-      phone: "",
-      country: "",
-      imageUrl: "",
-      brewery_desc: "",
-      openingTime: 0,
-      closing_time: 0,
-      three_word_desc: "",
+      currentBrewery: {},
 
       errorMsg: "",
 
@@ -135,10 +125,8 @@ export default {
     DollarSign,
   },
   created() {
-    const activeBreweryId = this.$route.params.id;
-    this.$store.commit("SET_ACTIVE_BREWERY", activeBreweryId);
+    this.$store.commit("SET_ACTIVE_BREWERY", this.$route.params.id);
     this.currentBrewery = this.$store.state.activeBrewery;
-    this.fillDefaultValues();
   },
   computed: {
     brewery() {
@@ -151,60 +139,16 @@ export default {
     flipEdit() {
       this.editMode = !this.editMode;
     },
-    fillDefaultValues() {
-      this.brewery_name = this.brewery.brewery_name;
-      this.brewery_type = this.brewery.brewery_type;
-      this.street = this.brewery.street;
-      this.city = this.brewery.city;
-      this.state = this.brewery.state;
-      this.postal_code = this.brewery.postal_code;
-      this.phone = this.brewery.phone;
-      this.country = this.brewery.country;
-      this.imageUrl = this.brewery.image_url;
-      this.brewery_desc = this.brewery.brewery_desc;
-      this.openingTime = this.brewery.opening_time;
-      this.closing_time = this.brewery.closing_time;
-      this.three_word_desc = this.brewery.three_word_Desc;
-    },
     updateBrewery() {
-      function createUpdatedBrewery() {
-        const updateBrewery = {
-          brewery_desc: this.brewery_desc,
-          brewery_name: this.brewery_name,
-          brewery_type: this.brewery_type,
-          city: this.city,
-          closing_time: this.closing_time,
-          country: this.country,
-          imageUrl: this.imageUrl,
-          openingTime: this.openingTime,
-          phone: this.phone,
-          postal_code: this.postal_code,
-          state: this.state,
-          street: this.street,
-          three_word_desc: this.three_word_desc,
-          address_2: this.brewery.address_2,
-          address_3: this.brewery.address_3,
-          bb_brewery_id: this.brewery.bb_brewery_id,
-          brewery_id: this.brewery.brewery_id,
-          cost_rating: this.brewery.cost_rating,
-          county_province: this.brewery.county_province,
-          latitude: this.brewery.latitude,
-          longitude: this.brewery.longitude,
-          noise_rating: this.brewery.noise_rating,
-          tags: this.brewery.tags,
-          website_url: this.brewery.website_url,
-        };
-        return updateBrewery;
-      }
       this.flipEdit();
-      BreweryService.updateBrewery(createUpdatedBrewery)
+      BreweryService.updateBrewery(this.currentBrewery)
         .then((response) => {
           if (response.status === 200) {
             alert("Brewery Updated");
             location.reload();
           }
         })
-        .carch((error) => {
+        .catch((error) => {
           if (error.response) {
             this.errorMsg =
               "Error Updating Brewery. Response received was '" +
@@ -219,6 +163,16 @@ export default {
           }
         });
     },
+    deleteBrewery() {
+
+      BreweryService.deleteBrewery(this.currentBrewery.bb_brewery_id).then(
+        (response) => {
+          if(response.status === 200){
+            alert("DELETED")
+          }
+        }
+      )
+    }
   },
 };
 </script>
