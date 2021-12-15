@@ -1,7 +1,7 @@
 package com.techelevator.model;
 
 public class Beer {
-    private String beer_id;
+    private Long beer_id;
     private String beer_name;
     private String abv;
     private String ibu;
@@ -11,11 +11,11 @@ public class Beer {
         //no-arg constructor
     }
 
-    public String getBeer_id() {
+    public Long getBeer_id() {
         return beer_id;
     }
 
-    public void setBeer_id(String beer_id) {
+    public void setBeer_id(Long beer_id) {
         this.beer_id = beer_id;
     }
     public String getBeer_name() {

@@ -31,16 +31,19 @@ public class JdbcBeerDao implements BeerDao{
     }
 
 @Override
-    public Beer findBeerByBrewery(String beerName){
+    public List<Beer> findBeerByBrewery(String beerName){
+        List<Beer> beerList = new ArrayList<>();
         String sql = "SELECT * " +
-                     "FROM beer " +
-                     "WHERE brewery_id = ?;";
+                     "from beer " +
+                     "INNER JOIN beer_manifest ON beer.beer_id = beer_manifest.beer_id " +
+                     "INNER JOIN brewery on beer_manifest.bb_brewery_id = brewery.bb_brewery_id " +
+                     "WHERE brewery_name = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, beerName);
-        if(result.next()) {
-            return mapRowToBeer(result);
-        } else {
-            throw new RuntimeException("Brewery " + beerName + " not found.");
+        while(result.next()) {
+            Beer beer = mapRowToBeer(result);
+            beerList.add(beer);
         }
+        return beerList;
     }
     @Override
     public void addBeerToBrewery(Beer beer) {
@@ -61,6 +64,18 @@ public class JdbcBeerDao implements BeerDao{
 
     }
 
+    public Beer viewBeerInformation(String beerName) {
+        String sql = "SELECT * " +
+                "FROM beer " +
+                "WHERE beer_name = ?;";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, beerName);
+        if(result.next()){
+            return mapRowToBeer(result);
+        } else {
+            throw new RuntimeException("Beer Name " + beerName + " not found.");
+        }
+    }
+
         //added
 @Override
     public Beer findBeerByType(String beerType){
@@ -78,9 +93,10 @@ public class JdbcBeerDao implements BeerDao{
 @Override
     public List<Beer> listBeersInBreweries(String breweryName) {
         List<Beer> beers = new ArrayList<>();
-        String sql = "SELECT beer_name\n" +
-                "FROM beer\n" +
-                "INNER JOIN brewery ON beer.brewery_id = brewery.bb_brewery_id \n" +
+        String sql = "SELECT beer_name " +
+                "FROM beer " +
+                "INNER JOIN beer_manifest ON beer.beer_id = beer_manifest.beer_id " +
+                "INNER JOIN brewery on beer_manifest.bb_brewery_id = brewery.bb_brewery_id " +
                 "WHERE brewery_name = ?";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, breweryName);
         if(result.next()) {
@@ -96,11 +112,12 @@ public class JdbcBeerDao implements BeerDao{
 
     private Beer mapRowToBeer(SqlRowSet rs){
         Beer beer = new Beer();
-        beer.setBeer_id(rs.getString("beer_id"));
+        beer.setBeer_id(rs.getLong("beer_id"));
         beer.setBeer_name(rs.getString("beer_name"));
-        beer.setBeer_type(rs.getString("beer_type"));
         beer.setAbv(rs.getString("abv"));
         beer.setIbu(rs.getString("ibu"));
+        beer.setBeer_type(rs.getString("beer_type"));
+
         return beer;
     }
 
