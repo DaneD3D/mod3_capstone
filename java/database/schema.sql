@@ -75,21 +75,21 @@ COMMIT TRANSACTION
 
 -- Import breweries. Uncomment and add the ABSOLUTE PATH of the CSV file in FROM
 
-/*
+
 COPY brewery(brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, state, county_province, postal_code, website_url, phone, country, longitude, latitude, tags)
-FROM 'C:\Users\Student\workspace\capstone-nlr4-blue-brewery\java\database\breweries.csv'
+FROM 'D:\TechElevator\workspace\capstone-nlr4-blue-brewery\java\database\breweries.csv'
 DELIMITER ','
 CSV HEADER;
 */
 
 -- Uncomment this and run it in DB Visualizer if we add a table
-/*
+
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON ALL TABLES IN SCHEMA public
 TO final_capstone_appuser;
 */
 
-/*
+
 GRANT USAGE, SELECT
 ON ALL sequences IN SCHEMA public
 TO final_capstone_appuser;
@@ -97,7 +97,7 @@ TO final_capstone_appuser;
 
 
 --Update all image_urls to placeholder
-/*
+
 UPDATE brewery
 SET image_url = 'https://picsum.photos/800/600',
 brewery_desc = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis
@@ -110,6 +110,71 @@ cost_rating = random() * 2 + 1,
 noise_rating = random() * 2 + 1,
 three_word_desc = 'Lorem ipsum dolor';
 */
+
+
+CREATE TABLE beer (
+    beer_id serial,
+    beer_name varchar(50) not null,
+    abv VARCHAR(50),
+    ibu VARCHAR(50),
+    beer_type varchar(50),
+    CONSTRAINT PK_beer PRIMARY KEY(beer_id)
+    --CONSTRAINT FK_beer_manifest FOREIGN KEY(beer_id) REFERENCES beer_manifest(beer_id)  
+);
+
+DROP TABLE IF EXISTS beer_manifest CASCADE;
+ CREATE TABLE beer_manifest (
+        beer_id serial,
+        bb_brewery_id serial,
+        PRIMARY KEY(beer_id, bb_brewery_id),
+        FOREIGN KEY(beer_id) REFERENCES beer(beer_id), 
+        FOREIGN KEY(bb_brewery_id) REFERENCES brewery(bb_brewery_id)  
+        );
+        
+ CREATE TABLE brewery (
+	bb_brewery_id serial,
+        brewery_id varchar(80),
+        
+        --owner_id int not null,
+        
+        brewery_name varchar(80),
+        brewery_type varchar(20),
+        street varchar(100),
+        address_2 varchar(50),
+        address_3 varchar(50),
+        city varchar(50),
+        state varchar(25),
+        county_province varchar(30),
+        postal_code varchar(11),
+        website_url varchar(120),
+        phone varchar(50),
+        country varchar(30),
+        longitude varchar(30),
+        latitude varchar(30),
+        image_url varchar(120),
+        
+        brewery_desc varchar(250),
+        opening_time time(0),
+        closing_time time(0),
+        cost_rating integer,
+        noise_rating integer,
+        three_word_desc varchar(20),
+        
+        tags varchar(10),
+	CONSTRAINT PK_brewery PRIMARY KEY(bb_brewery_id)
+	--CONSTRAINT FK_beer_manifest FOREIGN KEY(beer_id) REFERENCES beer_manifest(beer_id)  	
+        ); 
+        
+grant all on sequence seq_user_id to  final_capstone_appuser;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -131,8 +196,6 @@ VALUES ('sams bar', 'sams bar', 'new', '123 fake street', '2', '3', 'chicago', n
  
 INSERT INTO brewery (brewery_id, brewery_name, brewery_type, street, address_2, address_3, city, state) 
 VALUES ('sams bar2', 'sams bar2', 'new', '1234 fake street', 'null', 'null', 'chicago', null)
-
-
 
 SELECT *
 FROM beer
@@ -203,65 +266,6 @@ SET     brewery_id = 'sams bar',
         tags = null
 WHERE bb_brewery_id = 1;
 
-
-
-
-  
-CREATE TABLE beer (
-    beer_id serial,
-    beer_name varchar(50) not null,
-    abv VARCHAR(50),
-    ibu VARCHAR(50),
-    beer_type varchar(50),
-    CONSTRAINT PK_beer PRIMARY KEY(beer_id)
-    --CONSTRAINT FK_beer_manifest FOREIGN KEY(beer_id) REFERENCES beer_manifest(beer_id)  
-
-);
-
-
-DROP TABLE IF EXISTS beer_manifest CASCADE;
- CREATE TABLE beer_manifest (
-        beer_id serial,
-        bb_brewery_id serial,
-        PRIMARY KEY(beer_id, bb_brewery_id),
-        FOREIGN KEY(beer_id) REFERENCES beer(beer_id), 
-        FOREIGN KEY(bb_brewery_id) REFERENCES brewery(bb_brewery_id)  
-        );
-        
- CREATE TABLE brewery (
-	bb_brewery_id serial,
-        brewery_id varchar(80),
-        
-        --owner_id int not null,
-        
-        brewery_name varchar(80),
-        brewery_type varchar(20),
-        street varchar(100),
-        address_2 varchar(50),
-        address_3 varchar(50),
-        city varchar(50),
-        state varchar(25),
-        county_province varchar(30),
-        postal_code varchar(11),
-        website_url varchar(120),
-        phone varchar(50),
-        country varchar(30),
-        longitude varchar(30),
-        latitude varchar(30),
-        image_url varchar(120),
-        
-        brewery_desc varchar(250),
-        opening_time time(0),
-        closing_time time(0),
-        cost_rating integer,
-        noise_rating integer,
-        three_word_desc varchar(20),
-        
-        tags varchar(10),
-	CONSTRAINT PK_brewery PRIMARY KEY(bb_brewery_id)
-	--CONSTRAINT FK_beer_manifest FOREIGN KEY(beer_id) REFERENCES beer_manifest(beer_id)  	
-        ); 
-        
         
 INSERT into beer_manifest (beer_id, bb_brewery_id)
 VALUES ( (SELECT beer_id
@@ -273,7 +277,7 @@ VALUES ( (SELECT beer_id
           WHERE brewery_name = 'sams bar') );
           
         
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public
+
 
 SELECT  beer_name, abv, ibu, beer_type
 FROM beer
