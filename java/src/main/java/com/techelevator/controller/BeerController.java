@@ -18,6 +18,11 @@ public class BeerController {
     return beerDao.findBeerWithName(name);
     }
 
-
+    @RequestMapping(path = "/brewery/{name}", method = RequestMethod.POST)
+    public Beer addBeerToDB(@RequestBody Beer beer) {
+        System.out.println("Controller reached");
+        beerDao.addBeerToBrewery(beer);
+        return beer;
+    }
 
 }

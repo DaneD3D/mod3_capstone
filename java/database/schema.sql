@@ -89,6 +89,13 @@ ON ALL TABLES IN SCHEMA public
 TO final_capstone_appuser;
 */
 
+/*
+GRANT USAGE, SELECT
+ON ALL sequences IN SCHEMA public
+TO final_capstone_appuser;
+*/
+
+
 --Update all image_urls to placeholder
 /*
 UPDATE brewery
@@ -129,12 +136,12 @@ VALUES ('sams bar2', 'sams bar2', 'new', '1234 fake street', 'null', 'null', 'ch
 
 SELECT *
 FROM beer
-WHERE beer_type = 'soda'
+WHERE brewery_id = '6541'
 
 
 SELECT *
 FROM brewery
-WHERE brewery_name LIKE '%sam%'
+WHERE brewery_id LIKE '%sam%'
 
 
 SELECT beer_id, beer_name, abv, ibu, beer_type
@@ -147,23 +154,129 @@ FROM brewery
 WHERE brewery_name LIKE '%Oath%'
 
 
-INSERT into beer (brewery_id, beer_name, abv, ibu, beer_type)
-VALUES ('6541', 'Were All Misfits', '7' , null , 'Christmas Ale')
+INSERT into beer (beer_name, abv, ibu, beer_type)
+VALUES ('Were All Misfits', '7' , null , 'Christmas Ale')
 
 
 
-INSERT into beer (brewery_id, beer_name, abv, ibu, beer_type)
-VALUES ('6541', 'Twisted Every Way', '6.5' , null , 'IPA')
+INSERT into beer (beer_name, abv, ibu, beer_type)
+VALUES ('Twisted Every Way', '6.5' , null , 'IPA')
 
 
 
-INSERT into beer (brewery_id, beer_name, abv, ibu, beer_type)
-VALUES ('6541', 'LU', '4.7' , null , 'Kolsch')
+INSERT into beer (beer_name, abv, ibu, beer_type)
+VALUES ('LU', '4.7' , null , 'Kolsch')
+
+
+INSERT into beer (beer_name, abv, ibu, beer_type)
+VALUES ('BudLight', '5.0' , null, null)
 
 
 
-delete from beer
-where beer_id = 6
+delete from brewery
+where bb_brewery_id = 8046
 
- 
- 
+
+UPDATE brewery
+SET     brewery_id = 'sams bar', 
+        brewery_name = 'tims', 
+        brewery_type = null, 
+        street = null, 
+        address_2 = null, 
+        address_3 = null, 
+        city = null, 
+        state = null, 
+        county_province = null, 
+        postal_code = null, 
+        website_url = null, 
+        phone = null, 
+        country = null, 
+        longitude = null, 
+        latitude = null, 
+        image_url = null, 
+        brewery_desc = null, 
+        opening_time = null, 
+        closing_time = null, 
+        cost_rating = null, 
+        noise_rating = null, 
+        three_word_desc = null, 
+        tags = null
+WHERE bb_brewery_id = 1;
+
+
+
+
+  
+CREATE TABLE beer (
+    beer_id serial,
+    beer_name varchar(50) not null,
+    abv VARCHAR(50),
+    ibu VARCHAR(50),
+    beer_type varchar(50),
+    CONSTRAINT PK_beer PRIMARY KEY(beer_id)
+    --CONSTRAINT FK_beer_manifest FOREIGN KEY(beer_id) REFERENCES beer_manifest(beer_id)  
+
+);
+
+
+DROP TABLE IF EXISTS beer_manifest CASCADE;
+ CREATE TABLE beer_manifest (
+        beer_id serial,
+        bb_brewery_id serial,
+        PRIMARY KEY(beer_id, bb_brewery_id),
+        FOREIGN KEY(beer_id) REFERENCES beer(beer_id), 
+        FOREIGN KEY(bb_brewery_id) REFERENCES brewery(bb_brewery_id)  
+        );
+        
+ CREATE TABLE brewery (
+	bb_brewery_id serial,
+        brewery_id varchar(80),
+        
+        --owner_id int not null,
+        
+        brewery_name varchar(80),
+        brewery_type varchar(20),
+        street varchar(100),
+        address_2 varchar(50),
+        address_3 varchar(50),
+        city varchar(50),
+        state varchar(25),
+        county_province varchar(30),
+        postal_code varchar(11),
+        website_url varchar(120),
+        phone varchar(50),
+        country varchar(30),
+        longitude varchar(30),
+        latitude varchar(30),
+        image_url varchar(120),
+        
+        brewery_desc varchar(250),
+        opening_time time(0),
+        closing_time time(0),
+        cost_rating integer,
+        noise_rating integer,
+        three_word_desc varchar(20),
+        
+        tags varchar(10),
+	CONSTRAINT PK_brewery PRIMARY KEY(bb_brewery_id)
+	--CONSTRAINT FK_beer_manifest FOREIGN KEY(beer_id) REFERENCES beer_manifest(beer_id)  	
+        ); 
+        
+        
+INSERT into beer_manifest (beer_id, bb_brewery_id)
+VALUES ( (SELECT beer_id
+          FROM beer
+          WHERE beer_name = 'budlight'),
+          
+          (SELECT bb_brewery_id
+          FROM brewery
+          WHERE brewery_name = 'sams bar') );
+          
+        
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public
+
+SELECT  beer_name, abv, ibu, beer_type
+FROM beer
+INNER JOIN beer_manifest ON beer.beer_name = beer_manifest.brewery_name
+WHERE brewery_name = 'sams bar'
+        

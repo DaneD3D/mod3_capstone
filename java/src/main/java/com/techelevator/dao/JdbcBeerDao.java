@@ -42,13 +42,13 @@ public class JdbcBeerDao implements BeerDao{
             throw new RuntimeException("Brewery " + beerName + " not found.");
         }
     }
-
-    public void addBeerToBrewery(Beer beer){
-        String sql = "INSERT INTO beer  (brewery_id, beer_name, abv, ibu, beer_type) " +
-                     "VALUES (?, ?, ?, ?) RETURNING beer_id;";
+    @Override
+    public void addBeerToBrewery(Beer beer) {
+        System.out.println("add beer to brewery method reached");
+        String sql = "INSERT INTO beer  (beer_name, abv, ibu, beer_type) " +
+                "VALUES (?, ?, ?, ?) RETURNING beer_id;";
         long newBeer = jdbcTemplate.queryForObject(sql, Long.class,
-                beer.getBeer_id(), beer.getBrewery_id(), beer.getBeer_name(),
-                beer.getAbv(), beer.getIbu(), beer.getBeer_type());
+                beer.getBeer_name(), beer.getAbv(), beer.getIbu(), beer.getBeer_type());
     }
 
     public void updateBeer(Beer beer){
@@ -96,13 +96,11 @@ public class JdbcBeerDao implements BeerDao{
 
     private Beer mapRowToBeer(SqlRowSet rs){
         Beer beer = new Beer();
-        beer.setBb_beer_id(rs.getLong("bb_beer_id"));
         beer.setBeer_id(rs.getString("beer_id"));
         beer.setBeer_name(rs.getString("beer_name"));
         beer.setBeer_type(rs.getString("beer_type"));
         beer.setAbv(rs.getString("abv"));
         beer.setIbu(rs.getString("ibu"));
-        beer.setBrewery_id(rs.getString("brewery_id"));
         return beer;
     }
 
