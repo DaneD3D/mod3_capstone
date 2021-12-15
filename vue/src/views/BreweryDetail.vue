@@ -31,8 +31,10 @@
     </div>
 
     <div id="barBody" class="bodyObject">
-      <button id="editButton" @click="flipEdit">EDIT</button>
-      <button id="deleteButton" @click="">DELETE</button>
+      <div id="adminBreweryOptions" v-if="isAdmin">
+        <button id="editButton" @click="flipEdit">EDIT</button>
+        <button id="deleteButton" @click="deleteBrewery">DELETE</button>
+      </div>
       <ol id="breweryInformation">
         <li class="infoItem">
           {{ this.brewery.opening_time }} - {{ this.brewery.closing_time }}
@@ -59,25 +61,60 @@
         id="breweryForm"
       >
         <label for="brewName">Brewery Name</label>
-        <input type="text" name="brewName" id="" v-model="currentBrewery.brewery_name" />
+        <input
+          type="text"
+          name="brewName"
+          id=""
+          v-model="currentBrewery.brewery_name"
+        />
         <label for="brewType">Type of Brewery:</label>
-        <input type="text" name="brewType" id="" v-model="currentBrewery.brewery_type" />
+        <input
+          type="text"
+          name="brewType"
+          id=""
+          v-model="currentBrewery.brewery_type"
+        />
         <label for="street">Street</label>
-        <input type="text" name="street" id="" v-model="currentBrewery.street" />
+        <input
+          type="text"
+          name="street"
+          id=""
+          v-model="currentBrewery.street"
+        />
         <label for="city">City</label>
         <input type="text" name="city" id="" v-model="currentBrewery.city" />
         <label for="state">State</label>
         <input type="text" name="state" id="" v-model="currentBrewery.state" />
         <label for="postalCode">Postal Code</label>
-        <input type="text" name="postalCode" id="" v-model="currentBrewery.postal_code" />
+        <input
+          type="text"
+          name="postalCode"
+          id=""
+          v-model="currentBrewery.postal_code"
+        />
         <label for="phone">Phone</label>
         <input type="text" name="phone" id="" v-model="currentBrewery.phone" />
         <label for="country">Country</label>
-        <input type="text" name="country" id="" v-model="currentBrewery.country" />
+        <input
+          type="text"
+          name="country"
+          id=""
+          v-model="currentBrewery.country"
+        />
         <label for="imageUrl">Image URL</label>
-        <input type="text" name="imageUrl" id="" v-model="currentBrewery.image_url" />
+        <input
+          type="text"
+          name="imageUrl"
+          id=""
+          v-model="currentBrewery.image_url"
+        />
         <label for="brewDesc">Brewery Description</label>
-        <input type="text" name="brewDesc" id="" v-model="currentBrewery.brewery_desc" />
+        <input
+          type="text"
+          name="brewDesc"
+          id=""
+          v-model="currentBrewery.brewery_desc"
+        />
         <label for="threeWord">Three Word Description</label>
         <input
           type="text"
@@ -86,16 +123,25 @@
           v-model="currentBrewery.three_word_desc"
         />
         <label for="openTime">Opens At</label>
-        <input type="time" name="openTime" id="" v-model="currentBrewery.openingTime" />
+        <input
+          type="time"
+          name="openTime"
+          id=""
+          v-model="currentBrewery.openingTime"
+        />
         <label for="closeTime">Closes At</label>
-        <input type="time" name="closeTime" id="" v-model="currentBrewery.closing_time" />
+        <input
+          type="time"
+          name="closeTime"
+          id=""
+          v-model="currentBrewery.closing_time"
+        />
         <input type="submit" />
       </form>
       <ul v-else>
         <li>Beer 1</li>
         <li>Beer 2</li>
       </ul>
-      
     </div>
     <div id="barSocial" class="bodyObject">
       <p>Comments!</p>
@@ -124,7 +170,7 @@ export default {
     MusicNote,
     DollarSign,
   },
-  created() {
+  mounted() {
     this.$store.commit("SET_ACTIVE_BREWERY", this.$route.params.id);
     this.currentBrewery = this.$store.state.activeBrewery;
   },
@@ -133,6 +179,9 @@ export default {
       return this.$store.state.breweryList.find(
         (bar) => bar.bb_brewery_id == this.$route.params.id
       );
+    },
+    isAdmin() {
+      return this.$store.state.user.authorities[0].name == "ROLE_ADMIN";
     },
   },
   methods: {
@@ -144,7 +193,6 @@ export default {
       BreweryService.updateBrewery(this.currentBrewery)
         .then((response) => {
           if (response.status === 200) {
-            alert("Brewery Updated");
             location.reload();
           }
         })
@@ -164,15 +212,33 @@ export default {
         });
     },
     deleteBrewery() {
-
-      BreweryService.deleteBrewery(this.currentBrewery.bb_brewery_id).then(
-        (response) => {
-          if(response.status === 200){
-            alert("DELETED")
+      BreweryService.deleteBrewery(this.currentBrewery.bb_brewery_id)
+        .then((response) => {
+          if (response.status === 200) {
+            this.getBreweries();
+            this.$router.push("home");
           }
-        }
-      )
-    }
+        })
+        .catch((error) => {
+          if (error.response) {
+            this.errorMsg =
+              "Error deleting Brewery. Response received was '" +
+              error.response.statusText +
+              "'.";
+          } else if (error.request) {
+            this.errorMsg =
+              "Error deleting Brewery. Server could not be reached.";
+          } else {
+            this.errorMsg =
+              "Error deleting Brewery. Request could not be created.";
+          }
+        });
+    },
+    getBreweries() {
+      BreweryService.list().then((response) => {
+        this.$store.commit("SET_BREWERIES", response.data);
+      });
+    },
   },
 };
 </script>

@@ -32,7 +32,7 @@ export default new Vuex.Store({
   getters: {
     filteredList: state => {
       return getByNoiseLevel(state.noiseLevel, getByMoneyLevel(state.moneyLevel, getByKeyword(state.keywordTerm, state.breweryList)))
-    }
+    },
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -58,11 +58,6 @@ export default new Vuex.Store({
       state.activeBreweryId = breweryID;
       state.activeBrewery = getById(breweryID, state.breweryList);
     },
-    /*
-    UPDATE_ACTIVE_BREWERY(state, newBrewery){
-      
-    },
-    */
     INCREMENT_MONEY_LEVEL(state) {
       if (state.moneyLevel == 3) {
         state.moneyLevel = 0;
