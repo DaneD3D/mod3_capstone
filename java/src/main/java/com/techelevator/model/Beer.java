@@ -1,9 +1,7 @@
 package com.techelevator.model;
 
 public class Beer {
-    private long bb_beer_id;
     private String beer_id;
-    private String brewery_id;
     private String beer_name;
     private String abv;
     private String ibu;
@@ -13,14 +11,6 @@ public class Beer {
         //no-arg constructor
     }
 
-    public long getBb_beer_id() {
-        return bb_beer_id;
-    }
-
-    public void setBb_beer_id(long bb_beer_id) {
-        this.bb_beer_id = bb_beer_id;
-    }
-
     public String getBeer_id() {
         return beer_id;
     }
@@ -28,15 +18,6 @@ public class Beer {
     public void setBeer_id(String beer_id) {
         this.beer_id = beer_id;
     }
-
-    public String getBrewery_id() {
-        return brewery_id;
-    }
-
-    public void setBrewery_id(String brewery_id) {
-        this.brewery_id = brewery_id;
-    }
-
     public String getBeer_name() {
         return beer_name;
     }
@@ -72,9 +53,7 @@ public class Beer {
     @Override
     public String toString() {
         return "Beer{" +
-                "bb_beer_id=" + bb_beer_id +
-                ", beer_id='" + beer_id + '\'' +
-                ", brewery_id='" + brewery_id + '\'' +
+                "beer_id='" + beer_id + '\'' +
                 ", beer_name='" + beer_name + '\'' +
                 ", abv='" + abv + '\'' +
                 ", ibu='" + ibu + '\'' +

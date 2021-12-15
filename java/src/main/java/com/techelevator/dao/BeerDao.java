@@ -14,5 +14,7 @@ public interface BeerDao {
 
     List<Beer> listBeersInBreweries(String breweryName);
 
+    void addBeerToBrewery(Beer beer);
+
     void updateBeer(Beer beer);
 }
