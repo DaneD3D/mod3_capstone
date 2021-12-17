@@ -18,8 +18,8 @@ export default {
         return http.delete(`/brewery/delete/${brewery_id}`);
     },
 
-    getBreweryBeerMenu(brewery_id) {
-        return http.get(`/brewery/${brewery_id}/beers`);
+    getBreweryBeerMenu(breweryName) {
+        return http.get(`/brewery/${breweryName}/beers`);
     },
 
     addBeer(beer) {

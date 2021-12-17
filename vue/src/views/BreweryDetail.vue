@@ -38,13 +38,13 @@
       <ol id="breweryInformation">
         <li>Hours of Operation:</li>
         <li class="infoItem">
-          {{ openingTime }} - {{ this.brewery.closing_time }}
+          {{ this.brewery.opening_time }} AM - {{ this.brewery.closing_time }} PM
         </li>
         <br />
         <li>Type of Brewery:</li>
         <li class="infoItem">{{ this.brewery.brewery_type }} Brewery</li>
         <br />
-        <li>Abut Us:</li>
+        <li>About Us:</li>
         <li class="infoItem">{{ this.brewery.brewery_desc }}</li>
         <br />
         <li>Phone:</li>
@@ -145,7 +145,7 @@
         <input type="submit" />
       </form>
       <ul v-else id="barBeerMenu">
-        <li id="beerCapsule" v-for="beer in beerMenu" v-bind:key="beer">{{beer.beer_name}}</li>
+        <li id="beerCapsule" v-for="beer in beerMenu" v-bind:key="beer">{{beer.beer_name}} || ABV: {{beer.abv}}%  ||  IBU: {{beer.ibu}}  ||  Beer Type: {{beer_type}}</li>
       </ul>
     </div>
   </div>
@@ -166,20 +166,6 @@ export default {
       beerMenu: [
         {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
         {beer_name: "Budweiser", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
-        {beer_name: "Bud Light", abv: "6%", ibu: "7", beer_type: "Light Lager"},
       ],
 
       errorMsg: "",
@@ -194,7 +180,7 @@ export default {
   mounted() {
     this.$store.commit("SET_ACTIVE_BREWERY", this.$route.params.id);
     this.currentBrewery = this.$store.state.activeBrewery;
-    //this.getBeerMenu();
+    this.getBeerMenu();
   },
   computed: {
     brewery() {
@@ -204,7 +190,7 @@ export default {
     },
     isAdmin() {
       return this.$store.state.user.authorities[0].name == "ROLE_ADMIN";
-    },
+    }
   },
   methods: {
     flipEdit() {
@@ -262,9 +248,9 @@ export default {
       });
     },
     getBeerMenu() {
-      BreweryService.getBreweryBeerMenu(this.currentBrewery.bb_brewery_id).then((response) => {
+      BreweryService.getBreweryBeerMenu(this.currentBrewery.brewery_name).then((response) => {
         this.beerMenu = response.data;
-      })
+      });
     }
   },
 };
@@ -347,6 +333,17 @@ export default {
   grid-area: head;
 }
 
+form > label {
+  color: #fffefc;
+  margin: 4px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 18px;
+}
+form > input {
+  padding: 4px;
+  font-size: 14px;
+}
+
 #webLink {
   
   grid-area: link;
@@ -385,7 +382,10 @@ export default {
 
 #barMenu {
   grid-area: menu;
-  background-color: cadetblue;
+  background-color:#2f3353;
+  border-style: solid;
+  border-color: #F9A333;
+  border-width: 6px;
 }
 
 #barBeerMenu {
@@ -400,6 +400,7 @@ export default {
   background-color: #F9A333;
   padding: 10px;
   font-size: 17px;
+  border-radius: 10px;
 }
 
 #breweryForm {
